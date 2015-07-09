@@ -128,15 +128,10 @@
 #define CONFIG_RD_LOADADDR      0x11000000
 
 #define	CONFIG_EXTRA_ENV_SETTINGS \
-		"netdev=eth0\0" \
-		"ethprime=FEC0\0" \
                 "autostart=yes\0" \
 		"uboot=u-boot.bin\0" \
 		"kernel=uImage\0" \
 		"bootargs=console=ttymxc1,115200 video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24\0" \
-		"bootargs_nfs=setenv bootargs ${bootargs} root=/dev/nfs " \
-			"ip=dhcp nfsroot=${serverip}:${nfsroot},v3,tcp " \
-			"enable_wait_mode=off\0" \
 		"bootargs_mmc=setenv bootargs ${bootargs} " \
 			"root=/dev/mmcblk0p1 rootwait rw\0" \
 		"bootcmd_mmc=run bootargs_mmc;mmc dev 1;" \
@@ -185,14 +180,22 @@
 #define	CONFIG_SYS_PROMPT_HUSH_PS2	"> "
 #endif
 
-#define CONFIG_FEC0_IOBASE	ENET_BASE_ADDR
-#define CONFIG_FEC0_PINMUX	-1
-#define CONFIG_FEC0_MIIBASE	-1
-#define CONFIG_GET_FEC_MAC_ADDR_FROM_IIM
-#define CONFIG_MXC_FEC
-#define CONFIG_FEC0_PHY_ADDR		4
-#define CONFIG_ETH_PRIME
-#define CONFIG_RMII
+//#define CONFIG_FEC0_IOBASE	ENET_BASE_ADDR
+//#define CONFIG_FEC0_PINMUX	-1
+//#define CONFIG_FEC0_MIIBASE	-1
+#undef CONFIG_FEC0_IOBASE	ENET_BASE_ADDR
+#undef CONFIG_FEC0_PINMUX	-1
+#undef CONFIG_FEC0_MIIBASE	-1
+//#define CONFIG_GET_FEC_MAC_ADDR_FROM_IIM
+//#define CONFIG_MXC_FEC
+//#define CONFIG_FEC0_PHY_ADDR		4
+#undef CONFIG_GET_FEC_MAC_ADDR_FROM_IIM
+#undef CONFIG_MXC_FEC
+#undef CONFIG_FEC0_PHY_ADDR
+//#define CONFIG_ETH_PRIME
+//#define CONFIG_RMII
+#undef CONFIG_ETH_PRIME
+#undef CONFIG_RMII
 #define CONFIG_PHY_MICREL_KSZ9021
 //#define CONFIG_CMD_MII
 //#define CONFIG_CMD_DHCP
