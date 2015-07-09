@@ -3343,7 +3343,7 @@ mx6q_sabrelite_mfg_config   : unconfig
 mx6q_marsboard_config			\
 mx6q_marsboard_android_emmc_config 	\
 mx6q_marsboard_android_tf_config	\
-mx6q_marsboard_test_config	: unconfig
+mx6q_marsboard_test_config	\
 mx6q_marsboard_mfg_config   : unconfig
 	@$(MKCONFIG) $(@:_config=) arm arm_cortexa8 mx6q_marsboard embest mx6
 
