@@ -41,8 +41,8 @@
 
 #define CONFIG_MX6_HCLK_FREQ	24000000
 
-#define CONFIG_DISPLAY_CPUINFO
-#define CONFIG_DISPLAY_BOARDINFO
+//#define CONFIG_DISPLAY_CPUINFO
+//#define CONFIG_DISPLAY_BOARDINFO
 
 #define CONFIG_SYS_64BIT_VSPRINTF
 
@@ -78,6 +78,7 @@
 
 #include <config_cmd_default.h>
 
+/*
 #define CONFIG_CMD_PING
 #define CONFIG_CMD_DHCP
 #define CONFIG_CMD_MII
@@ -87,6 +88,17 @@
 #define CONFIG_BOOTP_SUBNETMASK
 #define CONFIG_BOOTP_GATEWAY
 #define CONFIG_BOOTP_DNS
+*/
+
+#undef CONFIG_CMD_PING
+#undef CONFIG_CMD_DHCP
+#undef CONFIG_CMD_MII
+#undef CONFIG_CMD_NET
+#undef CONFIG_NET_RETRY_COUNT
+#undef CONFIG_NET_MULTI
+#undef CONFIG_BOOTP_SUBNETMASK
+#undef CONFIG_BOOTP_GATEWAY
+#undef CONFIG_BOOTP_DNS
 
 #define CONFIG_CMD_SPI
 #define CONFIG_CMD_I2C
@@ -102,7 +114,8 @@
 #define CONFIG_CMD_CLOCK
 #define CONFIG_REF_CLK_FREQ CONFIG_MX6_HCLK_FREQ
 
-#define CONFIG_CMD_SATA
+//#define CONFIG_CMD_SATA
+#undef CONFIG_CMD_SATA
 #undef CONFIG_CMD_IMLS
 
 #define CONFIG_CMD_IMX_DOWNLOAD_MODE
@@ -124,7 +137,6 @@
 		"bootargs_nfs=setenv bootargs ${bootargs} root=/dev/nfs " \
 			"ip=dhcp nfsroot=${serverip}:${nfsroot},v3,tcp " \
 			"enable_wait_mode=off\0" \
-		"bootcmd_net=dhcp; run bootargs_nfs;bootm\0" \
 		"bootargs_mmc=setenv bootargs ${bootargs} " \
 			"root=/dev/mmcblk0p1 rootwait rw\0" \
 		"bootcmd_mmc=run bootargs_mmc;mmc dev 1;" \
@@ -148,7 +160,8 @@
 /*
  * Miscellaneous configurable options
  */
-#define CONFIG_SYS_LONGHELP		/* undef to save memory */
+//#define CONFIG_SYS_LONGHELP		/* undef to save memory */
+#undef CONFIG_SYS_LONGHELP		/* undef to save memory */
 #define CONFIG_SYS_PROMPT		"MX6Q MARSBOARD U-Boot > "
 #define CONFIG_AUTO_COMPLETE
 #define CONFIG_SYS_CBSIZE		256	/* Console I/O Buffer Size */
@@ -181,15 +194,23 @@
 #define CONFIG_ETH_PRIME
 #define CONFIG_RMII
 #define CONFIG_PHY_MICREL_KSZ9021
-#define CONFIG_CMD_MII
-#define CONFIG_CMD_DHCP
-#define CONFIG_CMD_PING
-#define CONFIG_IPADDR			192.168.1.103
+//#define CONFIG_CMD_MII
+//#define CONFIG_CMD_DHCP
+//#define CONFIG_CMD_PING
+//#define CONFIG_IPADDR			192.168.1.103
+#undef CONFIG_CMD_MII
+#undef CONFIG_CMD_DHCP
+#undef CONFIG_CMD_PING
+#undef CONFIG_IPADDR			192.168.1.103
 
 /*The IP ADDRESS of SERVERIP*/
-#define CONFIG_SERVERIP			_SERVER_IP_ADDR_
+//#define CONFIG_SERVERIP			_SERVER_IP_ADDR_
 
-#define CONFIG_NETMASK			255.255.255.0
+//#define CONFIG_NETMASK			255.255.255.0
+
+#undef CONFIG_SERVERIP			_SERVER_IP_ADDR_
+#undef CONFIG_NETMASK			255.255.255.0
+
 
 /*
  * OCOTP Configs
