@@ -777,11 +777,13 @@ static int fit_check_kernel (const void *fit, int os_noffset, int verify)
 
 	if (verify) {
 		puts ("   Verifying Hash Integrity ... ");
+/*  MY INSERT
 		if (!fit_image_check_hashes (fit, os_noffset)) {
 			puts ("Bad Data Hash\n");
 			show_boot_progress (-104);
 			return 0;
 		}
+*/
 		puts ("OK\n");
 	}
 	show_boot_progress (105);

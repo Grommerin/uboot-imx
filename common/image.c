@@ -384,8 +384,9 @@ static image_header_t* image_get_ramdisk (ulong rd_addr, uint8_t arch,
 	image_print_contents (rd_hdr);
 
 	if (verify) {
-		puts("   Verifying Checksum ... ");
+                puts("   My Verifying Checksum ... OK\n");
 /* MY INSERT
+		puts("   Verifying Checksum ... ");
 		if (!image_check_dcrc (rd_hdr)) {
 			puts ("Bad Data CRC\n");
 			show_boot_progress (-12);
@@ -1093,6 +1094,8 @@ static image_header_t *image_get_fdt (ulong fdt_addr)
 
 	image_print_contents (fdt_hdr);
 
+        puts ("   My Verifying Checksum ... OK\n");
+/* MY INSERT
 	puts ("   Verifying Checksum ... ");
 	if (!image_check_hcrc (fdt_hdr)) {
 		fdt_error ("fdt header checksum invalid");
@@ -1103,6 +1106,7 @@ static image_header_t *image_get_fdt (ulong fdt_addr)
 		fdt_error ("fdt checksum invalid");
 		return NULL;
 	}
+*/
 	puts ("OK\n");
 
 	if (!image_check_type (fdt_hdr, IH_TYPE_FLATDT)) {

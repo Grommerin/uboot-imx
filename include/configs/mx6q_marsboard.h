@@ -90,9 +90,9 @@
 #define CONFIG_BOOTP_GATEWAY
 #define CONFIG_BOOTP_DNS
 
-#define CONFIG_CMD_SPI
-#define CONFIG_CMD_I2C
-#define CONFIG_CMD_IMXOTP
+// NY INSERT #define CONFIG_CMD_SPI
+// NY INSERT #define CONFIG_CMD_I2C
+// NY INSERT #define CONFIG_CMD_IMXOTP
 
 /* Enable below configure when supporting nand */
 
@@ -104,7 +104,7 @@
 #define CONFIG_CMD_CLOCK
 #define CONFIG_REF_CLK_FREQ CONFIG_MX6_HCLK_FREQ
 
-#define CONFIG_CMD_SATA
+// NY INSERT #define CONFIG_CMD_SATA
 #undef CONFIG_CMD_IMLS
 
 #define CONFIG_CMD_IMX_DOWNLOAD_MODE
@@ -294,7 +294,7 @@
 /* Monitor at beginning of flash */
 /* #define CONFIG_FSL_ENV_IN_MMC */
 /* #define CONFIG_FSL_ENV_IN_SATA */
-#define CONFIG_FSL_ENV_IN_SF
+// MY INSERT #define CONFIG_FSL_ENV_IN_SF
 
 #define CONFIG_ENV_SECT_SIZE    (8 * 1024)
 #define CONFIG_ENV_SIZE         CONFIG_ENV_SECT_SIZE
