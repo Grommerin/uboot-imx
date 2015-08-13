@@ -409,10 +409,10 @@ void main_loop (void)
 # endif
 
 # ifndef CONFIG_SYS_HUSH_PARSER
-                printf("MY INSERT: prepend run_command()\n");
+                printf("MY INSERT: prepend 1 run_command()\n");
 		run_command (s, 0);
 # else
-                printf("MY INSERT: prepend parse_string_outer()\n");
+                printf("MY INSERT: prepend 1 parse_string_outer()\n");
 		parse_string_outer(s, FLAG_PARSE_SEMICOLON |
 				    FLAG_EXIT_FROM_LOOP);
 # endif
@@ -429,8 +429,10 @@ void main_loop (void)
 	    s = getenv("menucmd");
 	    if (s) {
 # ifndef CONFIG_SYS_HUSH_PARSER
+                printf("MY INSERT: prepend 2 run_command()\n");
 		run_command (s, 0);
 # else
+                printf("MY INSERT: prepend 2 parse_string_outer()\n");
 		parse_string_outer(s, FLAG_PARSE_SEMICOLON |
 				    FLAG_EXIT_FROM_LOOP);
 # endif
