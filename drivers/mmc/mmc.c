@@ -1567,9 +1567,9 @@ int mmc_init(struct mmc *mmc)
         }
 
 	mmc->uhs18v = 0;
-
+        printf("MY INSERT: mmc_init() prepend err = mmc->init(mmc)\n");
 	err = mmc->init(mmc);
-
+        printf("MY INSERT: mmc_init()         err = mmc->init(mmc)\n");
 	if (err) {
                 printf("MY INSERT: mmc_init() 1 err return %d\n", err);
 		return err;
