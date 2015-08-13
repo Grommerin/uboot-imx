@@ -3240,14 +3240,14 @@ int parse_string_outer(char *s, int flag)
                 printf("MY INSERT: ( !s || !*s)\n");
 		return 1;
         }
-        printf("MY INSERT: prepend (!(p = strchr(s, '\n')) || *++p)\n");
+        printf("MY INSERT: prepend (!(p = strchr(s, 'n')) || *++p)\n");
 	if (!(p = strchr(s, '\n')) || *++p) {
-                printf("MY INSERT: (!(p = strchr(s, '\n')) || *++p)\n");
+                printf("MY INSERT: (!(p = strchr(s, 'n')) || *++p)\n");
                 printf("MY INSERT: prepend xmalloc(strlen(s) + 2)\n");
 		p = xmalloc(strlen(s) + 2);
                 printf("MY INSERT: prepend strcpy(p, s)\n");
 		strcpy(p, s);
-                printf("MY INSERT: prepend strcat(p, "\n")\n");
+                printf("MY INSERT: prepend strcat(p, \"n\")\n");
 		strcat(p, "\n");
                 printf("MY INSERT: prepend setup_string_in_str(&input, p)\n");
 		setup_string_in_str(&input, p);
