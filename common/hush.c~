@@ -3229,39 +3229,40 @@ static int parse_string_outer(const char *s, int flag)
 int parse_string_outer(char *s, int flag)
 #endif	/* __U_BOOT__ */
 {
-        printf("  MY INSERT: start parse_string_outer()\n");
+        printf("  MY INSERT: start parse_string_outer(char *s, int flag)\n");
+        
+        int rcode;      // MY INSERT
 
 	struct in_str input;
 #ifdef __U_BOOT__
 	char *p = NULL;
-	int rcode;
-        printf("    MY INSERT: prepend ( !s || !*s)\n");
+// MY INSERT	int rcode;
 	if ( !s || !*s) {
-                printf("MY INSERT: ( !s || !*s)\n");
+                printf("MY INSERT: ( !s || !*s) return 1\n");
 		return 1;
         }
         printf("    MY INSERT: prepend (!(p = strchr(s, 'n')) || *++p)\n");
 	if (!(p = strchr(s, '\n')) || *++p) {
-                printf("      MY INSERT:       (!(p = strchr(s, 'n')) || *++p)\n");
-                printf("      MY INSERT: prepend xmalloc(strlen(s) + 2)\n");
+                printf("    MY INSERT:         (!(p = strchr(s, 'n')) || *++p)\n");
 		p = xmalloc(strlen(s) + 2);
-                printf("      MY INSERT: prepend strcpy(p, s)\n");
 		strcpy(p, s);
-                printf("      MY INSERT: prepend strcat(p, \"n\")\n");
 		strcat(p, "\n");
-                printf("      MY INSERT: prepend setup_string_in_str(&input, p)\n");
 		setup_string_in_str(&input, p);
                 printf("      MY INSERT: prepend parse_stream_outer(&input, flag)\n");
 		rcode = parse_stream_outer(&input, flag);
-                printf("      MY INSERT: prepend free(p)\n");
-		free(p);
+                if(p) {
+		        free(p);
+                }
+                printf("      MY INSERT: return rcode\n");
 		return rcode;
 	} else {
 #endif
         printf("    MY INSERT: prepend setup_string_in_str(&input, s)\n");
 	setup_string_in_str(&input, s);
-        printf("    MY INSERT: prepend return parse_stream_outer(&input, flag)\n");
-	return parse_stream_outer(&input, flag);
+        printf("    MY INSERT: prepend rcode = parse_stream_outer(&input, flag)\n");
+        rcode = parse_stream_outer(&input, flag);       // MY INSERT
+        printf("    MY INSERT: return rcode\n");
+	return rcode;
 #ifdef __U_BOOT__
 	}
 #endif
