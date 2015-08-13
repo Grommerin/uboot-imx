@@ -180,7 +180,7 @@ struct mmc *find_mmc_device(int dev_num)
 	}
 
 	printf("MMC Device %d not found\n", dev_num);
-        printf("MY INSERT: find_mmc_device() return NULL\n");
+
 	return NULL;
 }
 

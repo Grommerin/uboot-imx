@@ -322,7 +322,7 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 			return cmd_usage(cmdtp);
                 }
 
-                printf("  MY INSERT: do_mmcops() mmc = find_mmc_device(dev)\n");
+                printf("  MY INSERT: do_mmcops() mmc = find_mmc_device(%d)\n", dev);
 		mmc = find_mmc_device(dev);
 		if (!mmc) {
 			printf("no mmc device at slot %x\n", dev);

@@ -370,7 +370,7 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 			printf("mmc%d(part %d) is current device\n",
 				curr_device, mmc->part_num);
                 }
-
+                printf("MY INSERT: do_mmcops() return 0\n");
 		return 0;
 	}
         
