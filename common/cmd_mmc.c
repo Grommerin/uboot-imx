@@ -324,18 +324,19 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 
                 printf("  MY INSERT: do_mmcops() mmc = find_mmc_device(%d)\n", dev);
 		mmc = find_mmc_device(dev);
+                printf("  MY INSERT: do_mmcops() mmc = find_mmc_device(%d) returned\n", dev);
 		if (!mmc) {
 			printf("no mmc device at slot %x\n", dev);
 			return 1;
 		}
-
+                printf("  MY INSERT: do_mmcops() prepend if(mmc_init(mmc))\n");
 		if(mmc_init(mmc)) {
-                        printf("  MY INSERT: do_mmcops() if(mmc_init(mmc))\n");
+                        printf("  MY INSERT: do_mmcops()         if(mmc_init(mmc))\n");
 			return 1;
                 }
-
+                printf("  MY INSERT: do_mmcops() prepend if (part != -1)\n");
 		if (part != -1) {
-                        printf("  MY INSERT: do_mmcops() if (part != -1)\n");
+                        printf("  MY INSERT: do_mmcops()         if (part != -1)\n");
 			int ret;
 			if (mmc->part_config == MMCPART_NOAVAILABLE) {
 				printf("Card doesn't support part_switch\n");
@@ -361,6 +362,7 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 						part, (!ret) ? "OK" : "ERROR");
 			}
 		}
+                printf("  MY INSERT: do_mmcops() curr_device = dev\n", dev);
 		curr_device = dev;
 		if (mmc->part_config == MMCPART_NOAVAILABLE) {
 			printf("mmc%d is current device\n", curr_device);
@@ -374,7 +376,7 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 		return 0;
 	}
         
-
+        printf("MY INSERT: do_mmcops() !!!!! if (strcmp(argv[1], \"read\") == 0)\n");
 	if (strcmp(argv[1], "read") == 0)
 		state = MMC_READ;
 	else if (strcmp(argv[1], "write") == 0)
