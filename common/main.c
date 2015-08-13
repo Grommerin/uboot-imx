@@ -213,7 +213,7 @@ static int menukey = 0;
 
 static __inline__ int abortboot(int bootdelay)
 {
-        printf("My update: return 0");
+        printf("MY INSERT: abortboot() return 0\n");
         return 0;
 
 	int abort = 0;
@@ -399,25 +399,32 @@ void main_loop (void)
 		s = getenv ("bootcmd");
 
 	debug ("### main_loop: bootcmd=\"%s\"\n", s ? s : "<UNDEFINED>");
-
+        
+        printf("MY INSERT: prepend (bootdelay >= 0 && s && !abortboot (bootdelay))");
 	if (bootdelay >= 0 && s && !abortboot (bootdelay)) {
+                printf("MY INSERT: (bootdelay >= 0 && s && !abortboot (bootdelay))");
 # ifdef CONFIG_AUTOBOOT_KEYED
+                printf("MY INSERT: prepend disable_ctrlc()");
 		int prev = disable_ctrlc(1);	/* disable Control C checking */
 # endif
 
 # ifndef CONFIG_SYS_HUSH_PARSER
+                printf("MY INSERT: prepend run_command()");
 		run_command (s, 0);
 # else
+                printf("MY INSERT: prepend parse_string_outer()");
 		parse_string_outer(s, FLAG_PARSE_SEMICOLON |
 				    FLAG_EXIT_FROM_LOOP);
 # endif
 
-# ifdef CONFIG_AUTOBOOT_KEYED
+# ifdef CONFIG_AUTOBOOT_KEYED   
+                printf("MY INSERT: prepend disable_ctrlc()");
 		disable_ctrlc(prev);	/* restore Control C checking */
 # endif
 	}
 
 # ifdef CONFIG_MENUKEY
+        printf("MY INSERT: prepend (menukey == CONFIG_MENUKEY)");
 	if (menukey == CONFIG_MENUKEY) {
 	    s = getenv("menucmd");
 	    if (s) {
@@ -434,6 +441,7 @@ void main_loop (void)
 
 #ifdef CONFIG_AMIGAONEG3SE
 	{
+            printf("MY INSERT: prepend video_banner()");
 	    extern void video_banner(void);
 	    video_banner();
 	}
@@ -443,6 +451,7 @@ void main_loop (void)
 	 * Main Loop for Monitor Command Processing
 	 */
 #ifdef CONFIG_SYS_HUSH_PARSER
+        printf("MY INSERT: prepend parse_file_outer()");
 	parse_file_outer();
 	/* This point is never reached */
 	for (;;);

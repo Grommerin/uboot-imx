@@ -193,6 +193,16 @@
 
 #define CONFIG_NETMASK			255.255.255.0
 
+
+/*
+ * MY INSERT
+ */
+#ifndef CONFIG_SYS_CONSOLE_INFO_QUIET
+#define CONFIG_SYS_CONSOLE_INFO_QUIET
+#endif
+
+
+
 /*
  * OCOTP Configs
  */
