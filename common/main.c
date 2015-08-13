@@ -415,11 +415,13 @@ void main_loop (void)
                 printf("MY INSERT: prepend 1 parse_string_outer()\n");
 		parse_string_outer(s, FLAG_PARSE_SEMICOLON |
 				    FLAG_EXIT_FROM_LOOP);
+                printf("MY INSERT:         1 parse_string_outer()\n");
 # endif
 
 # ifdef CONFIG_AUTOBOOT_KEYED   
                 printf("MY INSERT: prepend disable_ctrlc()\n");
 		disable_ctrlc(prev);	/* restore Control C checking */
+                printf("MY INSERT:         disable_ctrlc()\n");
 # endif
 	}
 

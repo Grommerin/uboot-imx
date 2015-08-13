@@ -3241,6 +3241,7 @@ int parse_string_outer(char *s, int flag)
                 printf("MY INSERT: ( !s || !*s) return 1\n");
 		return 1;
         }
+
         printf("    MY INSERT: prepend (!(p = strchr(s, 'n')) || *++p)\n");
 	if (!(p = strchr(s, '\n')) || *++p) {
                 printf("    MY INSERT:         (!(p = strchr(s, 'n')) || *++p)\n");
