@@ -183,6 +183,8 @@ U_BOOT_CMD(
 
 int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 {
+        printf("MY INSERT: start do_mmcops()\n");
+
 	enum mmc_state state;
 
 	if (argc < 2)
@@ -330,6 +332,7 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 		if (mmc->part_config == MMCPART_NOAVAILABLE)
 			printf("mmc%d is current device\n", curr_device);
 		else
+                        printf("MY INSERT: do_mmcops() ... is current device\n");
 			printf("mmc%d(part %d) is current device\n",
 				curr_device, mmc->part_num);
 

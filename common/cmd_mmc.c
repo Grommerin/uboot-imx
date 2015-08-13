@@ -187,33 +187,45 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 
 	enum mmc_state state;
 
-	if (argc < 2)
+	if (argc < 2) {
+                printf("MY INSERT: do_mmcops() return cmd_usage(cmdtp)\n");
 		return cmd_usage(cmdtp);
+        }
 
 	if (curr_device < 0) {
-		if (get_mmc_num() > 0)
+		if (get_mmc_num() > 0) {
+                        printf("MY INSERT: do_mmcops() curr_device = 0\n");
 			curr_device = 0;
+                }
 		else {
+                        printf("MY INSERT: do_mmcops() No MMC device available return 1\n");
 			puts("No MMC device available\n");
 			return 1;
 		}
 	}
 
 	if (strcmp(argv[1], "rescan") == 0) {
+                printf("MY INSERT: do_mmcops() (strcmp(argv[1], \"rescan\") == 0)\n");
 		struct mmc *mmc = find_mmc_device(curr_device);
 
 		if (!mmc) {
+                        printf("MY INSERT: do_mmcops() no mmc device at slot return 1\n");
 			printf("no mmc device at slot %x\n", curr_device);
 			return 1;
 		}
 
 		mmc->has_init = 0;
 
-		if (mmc_init(mmc))
+		if (mmc_init(mmc)) {
+                        printf("MY INSERT: do_mmcops() mmc_init(mmc) return 1\n");
 			return 1;
-		else
+                }
+		else {
+                        printf("MY INSERT: do_mmcops() !mmc_init(mmc) return 0\n");
 			return 0;
+                }
 	} else if (strncmp(argv[1], "part", 4) == 0) {
+                printf("MY INSERT: do_mmcops() (strncmp(argv[1], \"part\", 4) == 0)\n");
 		block_dev_desc_t *mmc_dev;
 		struct mmc *mmc = find_mmc_device(curr_device);
 
@@ -232,6 +244,7 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 		puts("get mmc type error!\n");
 		return 1;
 	} else if (strncmp(argv[1], "bootpart", 8) == 0) {
+                printf("MY INSERT: do_mmcops() (strncmp(argv[1], \"bootpart\", 8) == 0)\n");
 		int dev, part = -1;
 		struct mmc *mmc;
 
@@ -279,9 +292,11 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 
 		return 0;
 	} else if (strcmp(argv[1], "list") == 0) {
+                printf("MY INSERT: do_mmcops() (strcmp(argv[1], \"list\") == 0)\n");
 		print_mmc_devices('\n');
 		return 0;
 	} else if (strcmp(argv[1], "dev") == 0) {
+                printf("MY INSERT: do_mmcops() (strcmp(argv[1], \"dev\") == 0)\n");
 		int dev, part = -1;
 		struct mmc *mmc;
 
@@ -338,6 +353,7 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 
 		return 0;
 	}
+        
 
 	if (strcmp(argv[1], "read") == 0)
 		state = MMC_READ;
