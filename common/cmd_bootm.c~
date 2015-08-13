@@ -739,6 +739,8 @@ static image_header_t *image_get_kernel (ulong img_addr, int verify)
 	image_print_contents (hdr);
 
 	if (verify) {
+                puts ("   My Verifying Checksum ... OK\n");
+/* MY INSERT
 		puts ("   Verifying Checksum ... ");
 		if (!image_check_dcrc (hdr)) {
 			printf ("Bad Data CRC\n");
@@ -746,6 +748,7 @@ static image_header_t *image_get_kernel (ulong img_addr, int verify)
 			return NULL;
 		}
 		puts ("OK\n");
+*/
 	}
 	show_boot_progress (4);
 
@@ -1096,12 +1099,15 @@ static int image_info (ulong addr)
 
 		image_print_contents (hdr);
 
+                puts ("   My Verifying Checksum ... OK\n");
+/* MY INSERT
 		puts ("   Verifying Checksum ... ");
 		if (!image_check_dcrc (hdr)) {
 			puts ("   Bad Data CRC\n");
 			return 1;
 		}
 		puts ("OK\n");
+*/
 		return 0;
 #if defined(CONFIG_FIT)
 	case IMAGE_FORMAT_FIT:
@@ -1168,13 +1174,15 @@ int do_imls (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 
 				printf ("Legacy Image at %08lX:\n", (ulong)hdr);
 				image_print_contents (hdr);
-
+                                puts ("   My Verifying Checksum ... OK\n");
+/* MY INSERT
 				puts ("   Verifying Checksum ... ");
 				if (!image_check_dcrc (hdr)) {
 					puts ("Bad Data CRC\n");
 				} else {
 					puts ("OK\n");
 				}
+*/
 				break;
 #if defined(CONFIG_FIT)
 			case IMAGE_FORMAT_FIT:

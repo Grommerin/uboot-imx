@@ -1549,11 +1549,13 @@ int do_booti(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 		   define the partition number of each partition in
 		   config file
 		 */
+		printf("MY INSERT: do_booti() mmc = find_mmc_device(%d)\n", mmcc);
 		mmc = find_mmc_device(mmcc);
 		if (!mmc) {
 			printf("booti: cannot find '%d' mmc device\n", mmcc);
 			goto fail;
 		}
+		printf("MY INSERT: do_booti() ev_desc = get_dev("mmc", mmcc)\n");
 		dev_desc = get_dev("mmc", mmcc);
 		if (NULL == dev_desc) {
 			printf("** Block device MMC %d not supported\n", mmcc);
