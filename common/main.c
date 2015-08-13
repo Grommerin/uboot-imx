@@ -99,9 +99,6 @@ extern void mdm_init(void); /* defined in board.c */
 # if defined(CONFIG_AUTOBOOT_KEYED)
 static __inline__ int abortboot(int bootdelay)
 {
-        printf("My update: return 0");
-        return 0;
-
 	int abort = 0;
 	uint64_t etime = endtick(bootdelay);
 	struct {
@@ -216,6 +213,9 @@ static int menukey = 0;
 
 static __inline__ int abortboot(int bootdelay)
 {
+        printf("My update: return 0");
+        return 0;
+
 	int abort = 0;
 
 #ifdef CONFIG_MENUPROMPT
