@@ -109,8 +109,6 @@
 
 #define CONFIG_CMD_IMX_DOWNLOAD_MODE
 
-#define CONFIG_BOOTDELAY 0
-
 #define CONFIG_PRIME	"FEC0"
 
 #define CONFIG_LOADADDR		0x10800000	/* loadaddr env var */

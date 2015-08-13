@@ -43,6 +43,8 @@
 
 //#define CONFIG_DISPLAY_CPUINFO
 //#define CONFIG_DISPLAY_BOARDINFO
+#undef CONFIG_DISPLAY_CPUINFO
+#undef CONFIG_DISPLAY_BOARDINFO
 
 #define CONFIG_SYS_64BIT_VSPRINTF
 
@@ -78,7 +80,6 @@
 
 #include <config_cmd_default.h>
 
-/*
 #define CONFIG_CMD_PING
 #define CONFIG_CMD_DHCP
 #define CONFIG_CMD_MII
@@ -88,17 +89,6 @@
 #define CONFIG_BOOTP_SUBNETMASK
 #define CONFIG_BOOTP_GATEWAY
 #define CONFIG_BOOTP_DNS
-*/
-
-#undef CONFIG_CMD_PING
-#undef CONFIG_CMD_DHCP
-#undef CONFIG_CMD_MII
-#undef CONFIG_CMD_NET
-#undef CONFIG_NET_RETRY_COUNT
-#undef CONFIG_NET_MULTI
-#undef CONFIG_BOOTP_SUBNETMASK
-#undef CONFIG_BOOTP_GATEWAY
-#undef CONFIG_BOOTP_DNS
 
 #define CONFIG_CMD_SPI
 #define CONFIG_CMD_I2C
@@ -114,8 +104,7 @@
 #define CONFIG_CMD_CLOCK
 #define CONFIG_REF_CLK_FREQ CONFIG_MX6_HCLK_FREQ
 
-//#define CONFIG_CMD_SATA
-#undef CONFIG_CMD_SATA
+#define CONFIG_CMD_SATA
 #undef CONFIG_CMD_IMLS
 
 #define CONFIG_CMD_IMX_DOWNLOAD_MODE
@@ -128,10 +117,16 @@
 #define CONFIG_RD_LOADADDR      0x11000000
 
 #define	CONFIG_EXTRA_ENV_SETTINGS \
+		"netdev=eth0\0" \
+		"ethprime=FEC0\0" \
                 "autostart=yes\0" \
 		"uboot=u-boot.bin\0" \
 		"kernel=uImage\0" \
 		"bootargs=console=ttymxc1,115200 video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24\0" \
+		"bootargs_nfs=setenv bootargs ${bootargs} root=/dev/nfs " \
+			"ip=dhcp nfsroot=${serverip}:${nfsroot},v3,tcp " \
+			"enable_wait_mode=off\0" \
+		"bootcmd_net=dhcp; run bootargs_nfs;bootm\0" \
 		"bootargs_mmc=setenv bootargs ${bootargs} " \
 			"root=/dev/mmcblk0p1 rootwait rw\0" \
 		"bootcmd_mmc=run bootargs_mmc;mmc dev 1;" \
@@ -155,8 +150,7 @@
 /*
  * Miscellaneous configurable options
  */
-//#define CONFIG_SYS_LONGHELP		/* undef to save memory */
-#undef CONFIG_SYS_LONGHELP		/* undef to save memory */
+#define CONFIG_SYS_LONGHELP		/* undef to save memory */
 #define CONFIG_SYS_PROMPT		"MX6Q MARSBOARD U-Boot > "
 #define CONFIG_AUTO_COMPLETE
 #define CONFIG_SYS_CBSIZE		256	/* Console I/O Buffer Size */
@@ -180,40 +174,24 @@
 #define	CONFIG_SYS_PROMPT_HUSH_PS2	"> "
 #endif
 
-//#define CONFIG_FEC0_IOBASE	ENET_BASE_ADDR
-//#define CONFIG_FEC0_PINMUX	-1
-//#define CONFIG_FEC0_MIIBASE	-1
-#undef CONFIG_FEC0_IOBASE	ENET_BASE_ADDR
-#undef CONFIG_FEC0_PINMUX	-1
-#undef CONFIG_FEC0_MIIBASE	-1
-//#define CONFIG_GET_FEC_MAC_ADDR_FROM_IIM
-//#define CONFIG_MXC_FEC
-//#define CONFIG_FEC0_PHY_ADDR		4
-#undef CONFIG_GET_FEC_MAC_ADDR_FROM_IIM
-#undef CONFIG_MXC_FEC
-#undef CONFIG_FEC0_PHY_ADDR
-//#define CONFIG_ETH_PRIME
-//#define CONFIG_RMII
-#undef CONFIG_ETH_PRIME
-#undef CONFIG_RMII
+#define CONFIG_FEC0_IOBASE	ENET_BASE_ADDR
+#define CONFIG_FEC0_PINMUX	-1
+#define CONFIG_FEC0_MIIBASE	-1
+#define CONFIG_GET_FEC_MAC_ADDR_FROM_IIM
+#define CONFIG_MXC_FEC
+#define CONFIG_FEC0_PHY_ADDR		4
+#define CONFIG_ETH_PRIME
+#define CONFIG_RMII
 #define CONFIG_PHY_MICREL_KSZ9021
-//#define CONFIG_CMD_MII
-//#define CONFIG_CMD_DHCP
-//#define CONFIG_CMD_PING
-//#define CONFIG_IPADDR			192.168.1.103
-#undef CONFIG_CMD_MII
-#undef CONFIG_CMD_DHCP
-#undef CONFIG_CMD_PING
-#undef CONFIG_IPADDR			192.168.1.103
+#define CONFIG_CMD_MII
+#define CONFIG_CMD_DHCP
+#define CONFIG_CMD_PING
+#define CONFIG_IPADDR			192.168.1.103
 
 /*The IP ADDRESS of SERVERIP*/
-//#define CONFIG_SERVERIP			_SERVER_IP_ADDR_
+#define CONFIG_SERVERIP			_SERVER_IP_ADDR_
 
-//#define CONFIG_NETMASK			255.255.255.0
-
-#undef CONFIG_SERVERIP			_SERVER_IP_ADDR_
-#undef CONFIG_NETMASK			255.255.255.0
-
+#define CONFIG_NETMASK			255.255.255.0
 
 /*
  * OCOTP Configs
