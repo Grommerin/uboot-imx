@@ -400,31 +400,31 @@ void main_loop (void)
 
 	debug ("### main_loop: bootcmd=\"%s\"\n", s ? s : "<UNDEFINED>");
         
-        printf("MY INSERT: prepend (bootdelay >= 0 && s && !abortboot (bootdelay))");
+        printf("MY INSERT: prepend (bootdelay >= 0 && s && !abortboot (bootdelay))\n");
 	if (bootdelay >= 0 && s && !abortboot (bootdelay)) {
-                printf("MY INSERT: (bootdelay >= 0 && s && !abortboot (bootdelay))");
+                printf("MY INSERT: (bootdelay >= 0 && s && !abortboot (bootdelay))\n");
 # ifdef CONFIG_AUTOBOOT_KEYED
                 printf("MY INSERT: prepend disable_ctrlc()");
 		int prev = disable_ctrlc(1);	/* disable Control C checking */
 # endif
 
 # ifndef CONFIG_SYS_HUSH_PARSER
-                printf("MY INSERT: prepend run_command()");
+                printf("MY INSERT: prepend run_command()\n");
 		run_command (s, 0);
 # else
-                printf("MY INSERT: prepend parse_string_outer()");
+                printf("MY INSERT: prepend parse_string_outer()\n");
 		parse_string_outer(s, FLAG_PARSE_SEMICOLON |
 				    FLAG_EXIT_FROM_LOOP);
 # endif
 
 # ifdef CONFIG_AUTOBOOT_KEYED   
-                printf("MY INSERT: prepend disable_ctrlc()");
+                printf("MY INSERT: prepend disable_ctrlc()\n");
 		disable_ctrlc(prev);	/* restore Control C checking */
 # endif
 	}
 
 # ifdef CONFIG_MENUKEY
-        printf("MY INSERT: prepend (menukey == CONFIG_MENUKEY)");
+        printf("MY INSERT: prepend (menukey == CONFIG_MENUKEY)\n");
 	if (menukey == CONFIG_MENUKEY) {
 	    s = getenv("menucmd");
 	    if (s) {
@@ -441,7 +441,7 @@ void main_loop (void)
 
 #ifdef CONFIG_AMIGAONEG3SE
 	{
-            printf("MY INSERT: prepend video_banner()");
+            printf("MY INSERT: prepend video_banner()\n");
 	    extern void video_banner(void);
 	    video_banner();
 	}
@@ -451,7 +451,7 @@ void main_loop (void)
 	 * Main Loop for Monitor Command Processing
 	 */
 #ifdef CONFIG_SYS_HUSH_PARSER
-        printf("MY INSERT: prepend parse_file_outer()");
+        printf("MY INSERT: prepend parse_file_outer()\n");
 	parse_file_outer();
 	/* This point is never reached */
 	for (;;);
