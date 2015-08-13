@@ -164,7 +164,9 @@ int do_mmcinfo(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 	mmc = find_mmc_device(curr_device);
 
 	if (mmc) {
+                printf("MY INSERT: do_mmcinfo() prepend mmc_init(mmc) \n");
 		mmc_init(mmc);
+                printf("MY INSERT: do_mmcinfo()         mmc_init(mmc) \n");
 
 		print_mmcinfo(mmc);
 		return 0;
@@ -215,13 +217,13 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 		}
 
 		mmc->has_init = 0;
-
+                printf("MY INSERT: do_mmcops() prepend mmc_init(mmc) \n");
 		if (mmc_init(mmc)) {
-                        printf("MY INSERT: do_mmcops() mmc_init(mmc) return 1\n");
+                        printf("MY INSERT: do_mmcops()         mmc_init(mmc) return 1\n");
 			return 1;
                 }
 		else {
-                        printf("MY INSERT: do_mmcops() !mmc_init(mmc) return 0\n");
+                        printf("MY INSERT: do_mmcops()         mmc_init(mmc) return 0\n");
 			return 0;
                 }
 	} else if (strncmp(argv[1], "part", 4) == 0) {
@@ -233,7 +235,9 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 			printf("no mmc device at slot %x\n", curr_device);
 			return 1;
 		}
+                printf("MY INSERT: do_mmcops() prepend mmc_init(mmc) \n");
 		mmc_init(mmc);
+                printf("MY INSERT: do_mmcops()         mmc_init(mmc) \n");
 		mmc_dev = mmc_get_dev(curr_device);
 		if (mmc_dev != NULL &&
 				mmc_dev->type != DEV_TYPE_UNKNOWN) {
@@ -376,7 +380,7 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 		return 0;
 	}
         
-
+        printf("MY INSERT: do_mmcops() !!!!! if (strcmp(argv[1], \"read\") == 0)\n");
 	if (strcmp(argv[1], "read") == 0)
 		state = MMC_READ;
 	else if (strcmp(argv[1], "write") == 0)
