@@ -197,8 +197,9 @@
 /*
  * MY INSERT
  */
+#ifndef CONFIG_SYS_CONSOLE_INFO_QUIET
 #define CONFIG_SYS_CONSOLE_INFO_QUIET
-
+#endif
 
 
 

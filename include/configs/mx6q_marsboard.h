@@ -201,6 +201,7 @@
 #define CONFIG_SYS_CONSOLE_INFO_QUIET
 #endif
 
+#define CONFIG_MMC_TRACE
 
 
 /*
