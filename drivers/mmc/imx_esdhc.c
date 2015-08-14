@@ -560,31 +560,54 @@ static int esdhc_init(struct mmc *mmc)
 	u32 tmp;
 
 	/* Reset the eSDHC by writing 1 to RSTA bit of SYSCTRL Register */
+        printf("  MY INSERT: esdhc_init() prepend tmp = readl(&regs->sysctl) | SYSCTL_RSTA\n");
 	tmp = readl(&regs->sysctl) | SYSCTL_RSTA;
+        printf("  MY INSERT: esdhc_init()         tmp = readl(&regs->sysctl) | SYSCTL_RSTA\n");
+        printf("  MY INSERT: esdhc_init() prepend writel(tmp, &regs->sysctl)\n");
 	writel(tmp, &regs->sysctl);
+        printf("  MY INSERT: esdhc_init()         writel(tmp, &regs->sysctl)\n");
 
-	while (readl(&regs->sysctl) & SYSCTL_RSTA)
+        printf("  MY INSERT: esdhc_init() prepend while (readl(&regs->sysctl) & SYSCTL_RSTA)\n");
+	while (readl(&regs->sysctl) & SYSCTL_RSTA) {
 		;
+        }
+        printf("  MY INSERT: esdhc_init()         while (readl(&regs->sysctl) & SYSCTL_RSTA)\n");
 
 	/* RSTA doesn't reset MMC_BOOT register, so manually reset it */
+        printf("  MY INSERT: esdhc_init() prepend writel(0, &regs->mmcboot)\n");
 	writel(0, &regs->mmcboot);
+        printf("  MY INSERT: esdhc_init()         writel(0, &regs->mmcboot)\n");
 	/* Reset MIX_CTRL and CLK_TUNE_CTRL_STATUS regs to 0 */
+        printf("  MY INSERT: esdhc_init() prepend writel(0, &regs->mixctrl)\n");
 	writel(0, &regs->mixctrl);
+        printf("  MY INSERT: esdhc_init()         writel(0, &regs->mixctrl)\n");
+        printf("  MY INSERT: esdhc_init() prepend writel(0, &regs->clktunectrlstatus)\n");
 	writel(0, &regs->clktunectrlstatus);
+        printf("  MY INSERT: esdhc_init()         writel(0, &regs->clktunectrlstatus)\n");
 
 	/* Put VEND_SPEC to default value */
+        printf("  MY INSERT: prepend writel(VENDORSPEC_INIT, &regs->vendorspec)\n");
 	writel(VENDORSPEC_INIT, &regs->vendorspec);
+        printf("  MY INSERT:         writel(VENDORSPEC_INIT, &regs->vendorspec)\n");
 
 #ifdef CONFIG_IMX_ESDHC_V1
+        printf("  MY INSERT: esdhc_init() prepend tmp = readl(&regs->sysctl) | (SYSCTL_HCKEN | SYSCTL_IPGEN)\n");
 	tmp = readl(&regs->sysctl) | (SYSCTL_HCKEN | SYSCTL_IPGEN);
+        printf("  MY INSERT: esdhc_init()         tmp = readl(&regs->sysctl) | (SYSCTL_HCKEN | SYSCTL_IPGEN)\n");
+        printf("  MY INSERT: esdhc_init() prepend writel(tmp, &regs->sysctl)\n");
 	writel(tmp, &regs->sysctl);
+        printf("  MY INSERT: esdhc_init()         writel(tmp, &regs->sysctl)\n");
 #endif
 
 	/* Set the initial clock speed */
+        printf("  MY INSERT: esdhc_init() prepend set_sysctl(mmc, 400000)\n");
 	set_sysctl(mmc, 400000);
+        printf("  MY INSERT: esdhc_init()         set_sysctl(mmc, 400000)\n");
 
 	/* Put the PROCTL reg back to the default */
+        printf("  MY INSERT: esdhc_init() prepend writel(PROCTL_INIT, &regs->proctl)\n");
 	writel(PROCTL_INIT, &regs->proctl);
+        printf("  MY INSERT: esdhc_init()         writel(PROCTL_INIT, &regs->proctl)\n");
 
 	/* FIXME: For our CINS bit doesn't work. So this section is disabled. */
 	/*
@@ -598,13 +621,20 @@ static int esdhc_init(struct mmc *mmc)
 	*/
 
 #ifndef CONFIG_IMX_ESDHC_V1
+        printf("  MY INSERT: esdhc_init() prepend tmp = readl(&regs->sysctl) | SYSCTL_INITA\n");
 	tmp = readl(&regs->sysctl) | SYSCTL_INITA;
+        printf("  MY INSERT: esdhc_init()         tmp = readl(&regs->sysctl) | SYSCTL_INITA\n");
+        printf("  MY INSERT: esdhc_init() prepend writel(tmp, &regs->sysctl)\n");
 	writel(tmp, &regs->sysctl);
+        printf("  MY INSERT: esdhc_init()         writel(tmp, &regs->sysctl)\n");
 
-	while (readl(&regs->sysctl) & SYSCTL_INITA)
+        printf("  MY INSERT: esdhc_init() prepend while (readl(&regs->sysctl) & SYSCTL_INITA)\n");
+	while (readl(&regs->sysctl) & SYSCTL_INITA) {
 		;
+        }
+        printf("  MY INSERT: esdhc_init()         while (readl(&regs->sysctl) & SYSCTL_INITA)\n");
 #endif
-
+        printf("  MY INSERT: esdhc_init() return 0\n");
 	return 0;
 }
 
