@@ -33,19 +33,15 @@ int do_mmc(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 {
 	int dev;
 
-        printf("Test: do_mmc(): argc = %d", argc);
-
 	if (argc < 2)
 		return cmd_usage(cmdtp);
 
 	if (strcmp(argv[1], "init") == 0) {
 		if (argc == 2) {
-			if (curr_device < 0) {
+			if (curr_device < 0)
 				dev = 1;
-                        }
-			else {
+			else
 				dev = curr_device;
-                        }
 		} else if (argc == 3) {
 			dev = (int)simple_strtoul(argv[2], NULL, 10);
 		} else {
@@ -164,9 +160,7 @@ int do_mmcinfo(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 	mmc = find_mmc_device(curr_device);
 
 	if (mmc) {
-                printf("MY INSERT: do_mmcinfo() prepend mmc_init(mmc) \n");
 		mmc_init(mmc);
-                printf("MY INSERT: do_mmcinfo()         mmc_init(mmc) \n");
 
 		print_mmcinfo(mmc);
 		return 0;
@@ -185,49 +179,35 @@ U_BOOT_CMD(
 
 int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 {
-        printf("MY INSERT: start do_mmcops()\n");
-
 	enum mmc_state state;
 
-	if (argc < 2) {
-                printf("MY INSERT: do_mmcops() return cmd_usage(cmdtp)\n");
+	if (argc < 2)
 		return cmd_usage(cmdtp);
-        }
 
 	if (curr_device < 0) {
-		if (get_mmc_num() > 0) {
-                        printf("MY INSERT: do_mmcops() curr_device = 0\n");
+		if (get_mmc_num() > 0)
 			curr_device = 0;
-                }
 		else {
-                        printf("MY INSERT: do_mmcops() No MMC device available return 1\n");
 			puts("No MMC device available\n");
 			return 1;
 		}
 	}
 
 	if (strcmp(argv[1], "rescan") == 0) {
-                printf("MY INSERT: do_mmcops() (strcmp(argv[1], \"rescan\") == 0)\n");
 		struct mmc *mmc = find_mmc_device(curr_device);
 
 		if (!mmc) {
-                        printf("MY INSERT: do_mmcops() no mmc device at slot return 1\n");
 			printf("no mmc device at slot %x\n", curr_device);
 			return 1;
 		}
 
 		mmc->has_init = 0;
-                printf("MY INSERT: do_mmcops() prepend 0 mmc_init(mmc) \n");
-		if (mmc_init(mmc)) {
-                        printf("MY INSERT: do_mmcops()         0 mmc_init(mmc) return 1\n");
+
+		if (mmc_init(mmc))
 			return 1;
-                }
-		else {
-                        printf("MY INSERT: do_mmcops()         0 mmc_init(mmc) return 0\n");
+		else
 			return 0;
-                }
 	} else if (strncmp(argv[1], "part", 4) == 0) {
-                printf("MY INSERT: do_mmcops() (strncmp(argv[1], \"part\", 4) == 0)\n");
 		block_dev_desc_t *mmc_dev;
 		struct mmc *mmc = find_mmc_device(curr_device);
 
@@ -235,9 +215,7 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 			printf("no mmc device at slot %x\n", curr_device);
 			return 1;
 		}
-                printf("MY INSERT: do_mmcops() prepend 1 mmc_init(mmc) \n");
 		mmc_init(mmc);
-                printf("MY INSERT: do_mmcops()         1 mmc_init(mmc) \n");
 		mmc_dev = mmc_get_dev(curr_device);
 		if (mmc_dev != NULL &&
 				mmc_dev->type != DEV_TYPE_UNKNOWN) {
@@ -248,7 +226,6 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 		puts("get mmc type error!\n");
 		return 1;
 	} else if (strncmp(argv[1], "bootpart", 8) == 0) {
-                printf("MY INSERT: do_mmcops() (strncmp(argv[1], \"bootpart\", 8) == 0)\n");
 		int dev, part = -1;
 		struct mmc *mmc;
 
@@ -267,9 +244,9 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 			printf("no mmc device at slot %x\n", dev);
 			return 1;
 		}
-                printf("MY INSERT: do_mmcops() prepend 2 mmc_init(mmc) \n");
+
 		mmc_init(mmc);
-                printf("MY INSERT: do_mmcops()         2 mmc_init(mmc) \n");
+
 		if (mmc->part_config == MMCPART_NOAVAILABLE) {
 			printf("Card doesn't support boot partition feature\n");
 			return 0;
@@ -296,24 +273,17 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 
 		return 0;
 	} else if (strcmp(argv[1], "list") == 0) {
-                printf("MY INSERT: do_mmcops() (strcmp(argv[1], \"list\") == 0)\n");
 		print_mmc_devices('\n');
 		return 0;
 	} else if (strcmp(argv[1], "dev") == 0) {
-                printf("MY INSERT: do_mmcops() (strcmp(argv[1], \"dev\") == 0)\n");
 		int dev, part = -1;
 		struct mmc *mmc;
 
-		if (argc == 2) {
-                        printf("  MY INSERT: do_mmcops() dev = curr_device\n");
+		if (argc == 2)
 			dev = curr_device;
-                }
-		else if (argc == 3) {
-                        printf("  MY INSERT: do_mmcops() dev = simple_strtoul(argv[2], NULL, 10)\n");
+		else if (argc == 3)
 			dev = simple_strtoul(argv[2], NULL, 10);
-                }
 		else if (argc == 4) {
-                        printf("  MY INSERT: do_mmcops() dev = (int)simple_strtoul(argv[2], NULL, 10)\n");
 			dev = (int)simple_strtoul(argv[2], NULL, 10);
 			part = (int)simple_strtol(argv[3], NULL, 10);
 			if (part > PART_ACCESS_MASK) {
@@ -321,26 +291,19 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 					" than %d\n", PART_ACCESS_MASK);
 				return 1;
 			}
-		} else {
-                        printf("  MY INSERT: do_mmcops() return cmd_usage(cmdtp)\n");
+		} else
 			return cmd_usage(cmdtp);
-                }
 
-                printf("  MY INSERT: do_mmcops() mmc = find_mmc_device(%d)\n", dev);
 		mmc = find_mmc_device(dev);
-                printf("  MY INSERT: do_mmcops() mmc = find_mmc_device(%d) returned\n", dev);
 		if (!mmc) {
 			printf("no mmc device at slot %x\n", dev);
 			return 1;
 		}
-                printf("  MY INSERT: do_mmcops() prepend 4 mmc_init(mmc)\n");
-		if(mmc_init(mmc)) {
-                        printf("  MY INSERT: do_mmcops()         4 mmc_init(mmc)\n");
+
+		if(mmc_init(mmc))
 			return 1;
-                }
-                printf("  MY INSERT: do_mmcops() prepend if (part != -1)\n");
+
 		if (part != -1) {
-                        printf("  MY INSERT: do_mmcops()         if (part != -1)\n");
 			int ret;
 			if (mmc->part_config == MMCPART_NOAVAILABLE) {
 				printf("Card doesn't support part_switch\n");
@@ -348,39 +311,27 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 			}
 
 			if (part != mmc->part_num) {
-                                printf("  MY INSERT: do_mmcops() if (part != mmc->part_num)\n");
-				if (IS_SD(mmc)) {
-                                        printf("  MY INSERT: do_mmcops() ret = sd_switch_part(dev, part)\n");
+				if (IS_SD(mmc))
 					ret = sd_switch_part(dev, part);
-                                }
-				else {
-                                        printf("  MY INSERT: do_mmcops() ret = mmc_switch_part(dev, part)\n");
+				else
 					ret = mmc_switch_part(dev, part);
-                                }
-				if (!ret) {
-                                        printf("  MY INSERT: do_mmcops() mmc->part_num = part\n");
+				if (!ret)
 					mmc->part_num = part;
-                                }
 
 				printf("switch to partition #%d, %s\n",
 						part, (!ret) ? "OK" : "ERROR");
 			}
 		}
-                printf("  MY INSERT: do_mmcops() curr_device = dev\n", dev);
 		curr_device = dev;
-		if (mmc->part_config == MMCPART_NOAVAILABLE) {
+		if (mmc->part_config == MMCPART_NOAVAILABLE)
 			printf("mmc%d is current device\n", curr_device);
-                }
-		else {
-                        printf("MY INSERT: do_mmcops() ... is current device\n");
+		else
 			printf("mmc%d(part %d) is current device\n",
 				curr_device, mmc->part_num);
-                }
-                printf("MY INSERT: do_mmcops() return 0\n");
+
 		return 0;
 	}
-        
-        printf("MY INSERT: do_mmcops() !!!!! if (strcmp(argv[1], \"read\") == 0)\n");
+
 	if (strcmp(argv[1], "read") == 0)
 		state = MMC_READ;
 	else if (strcmp(argv[1], "write") == 0)
@@ -411,9 +362,9 @@ int do_mmcops(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 
 		printf("\nMMC %s: dev # %d, block # %d, count %d ... ",
 				argv[1], curr_device, blk, cnt);
-                printf("MY INSERT: do_mmcops() prepend 5 mmc_init(mmc) \n");
+
 		mmc_init(mmc);
-                printf("MY INSERT: do_mmcops()         5 mmc_init(mmc) \n");
+
 		switch (state) {
 		case MMC_READ:
 			n = mmc->block_dev.block_read(curr_device, blk,

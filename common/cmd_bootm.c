@@ -739,8 +739,6 @@ static image_header_t *image_get_kernel (ulong img_addr, int verify)
 	image_print_contents (hdr);
 
 	if (verify) {
-                puts ("   My Verifying Checksum ... OK\n");
-/* MY INSERT
 		puts ("   Verifying Checksum ... ");
 		if (!image_check_dcrc (hdr)) {
 			printf ("Bad Data CRC\n");
@@ -748,7 +746,6 @@ static image_header_t *image_get_kernel (ulong img_addr, int verify)
 			return NULL;
 		}
 		puts ("OK\n");
-*/
 	}
 	show_boot_progress (4);
 
@@ -780,13 +777,11 @@ static int fit_check_kernel (const void *fit, int os_noffset, int verify)
 
 	if (verify) {
 		puts ("   Verifying Hash Integrity ... ");
-/*  MY INSERT
 		if (!fit_image_check_hashes (fit, os_noffset)) {
 			puts ("Bad Data Hash\n");
 			show_boot_progress (-104);
 			return 0;
 		}
-*/
 		puts ("OK\n");
 	}
 	show_boot_progress (105);
@@ -1099,15 +1094,12 @@ static int image_info (ulong addr)
 
 		image_print_contents (hdr);
 
-                puts ("   My Verifying Checksum ... OK\n");
-/* MY INSERT
 		puts ("   Verifying Checksum ... ");
 		if (!image_check_dcrc (hdr)) {
 			puts ("   Bad Data CRC\n");
 			return 1;
 		}
 		puts ("OK\n");
-*/
 		return 0;
 #if defined(CONFIG_FIT)
 	case IMAGE_FORMAT_FIT:
@@ -1174,15 +1166,13 @@ int do_imls (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 
 				printf ("Legacy Image at %08lX:\n", (ulong)hdr);
 				image_print_contents (hdr);
-                                puts ("   My Verifying Checksum ... OK\n");
-/* MY INSERT
+
 				puts ("   Verifying Checksum ... ");
 				if (!image_check_dcrc (hdr)) {
 					puts ("Bad Data CRC\n");
 				} else {
 					puts ("OK\n");
 				}
-*/
 				break;
 #if defined(CONFIG_FIT)
 			case IMAGE_FORMAT_FIT:
@@ -1549,13 +1539,11 @@ int do_booti(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 		   define the partition number of each partition in
 		   config file
 		 */
-		printf("MY INSERT: do_booti() mmc = find_mmc_device(%d)\n", mmcc);
 		mmc = find_mmc_device(mmcc);
 		if (!mmc) {
 			printf("booti: cannot find '%d' mmc device\n", mmcc);
 			goto fail;
 		}
-		printf("MY INSERT: do_booti() ev_desc = get_dev("mmc", mmcc)\n");
 		dev_desc = get_dev("mmc", mmcc);
 		if (NULL == dev_desc) {
 			printf("** Block device MMC %d not supported\n", mmcc);

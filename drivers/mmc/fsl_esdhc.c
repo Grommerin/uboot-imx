@@ -282,8 +282,6 @@ static void esdhc_set_ios(struct mmc *mmc)
 
 static int esdhc_init(struct mmc *mmc)
 {
-        printf("MY INSERT: start fsl esdhc_init()\n");
-
 	struct fsl_esdhc *regs = mmc->priv;
 	int timeout = 1000;
 
@@ -312,8 +310,6 @@ static int esdhc_init(struct mmc *mmc)
 
 static int esdhc_initialize(bd_t *bis)
 {
-        printf("MY INSERT: start esdhc_initialize()\n");
-
 	struct fsl_esdhc *regs = (struct fsl_esdhc *)CONFIG_SYS_FSL_ESDHC_ADDR;
 	struct mmc *mmc;
 	u32 caps;

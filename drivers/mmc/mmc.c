@@ -163,24 +163,18 @@ int mmc_set_blocklen(struct mmc *mmc, int len)
 
 struct mmc *find_mmc_device(int dev_num)
 {
-        printf("MY INSERT: start find_mmc_device(%d)\n", dev_num);
-        
 	struct mmc *m;
 	struct list_head *entry;
 
-        printf("MY INSERT: find_mmc_device() prepend list_for_each(entry, &mmc_devices)\n");
 	list_for_each(entry, &mmc_devices) {
-                printf("MY INSERT: find_mmc_device() prepend m = list_entry(entry, struct mmc, link)\n");
 		m = list_entry(entry, struct mmc, link);
-                printf("MY INSERT: find_mmc_device()         m = list_entry(entry, struct mmc, link)\n");
-		if (m->block_dev.dev == dev_num) {
-                        printf("MY INSERT: find_mmc_device() if (m->block_dev.dev == dev_num) return m\n");
+
+		if (m->block_dev.dev == dev_num)
 			return m;
-                }
 	}
 
 	printf("MMC Device %d not found\n", dev_num);
-        printf("MY INSERT: find_mmc_device() return NULL\n");
+
 	return NULL;
 }
 
@@ -1557,75 +1551,51 @@ block_dev_desc_t *mmc_get_dev(int dev)
 
 int mmc_init(struct mmc *mmc)
 {
-        printf("MY INSERT: start mmc_init()\n");
-
 	int err;
 
-	if (mmc->has_init) {
-                printf("MY INSERT: mmc_init() mmc->has_init return 0\n");
+	if (mmc->has_init)
 		return 0;
-        }
 
 	mmc->uhs18v = 0;
-        printf("MY INSERT: mmc_init() prepend err = mmc->init(mmc)\n");
-	err = mmc->init(mmc);
-        printf("MY INSERT: mmc_init()         err = mmc->init(mmc)\n");
-	if (err) {
-                printf("MY INSERT: mmc_init() 1 err return %d\n", err);
-		return err;
-        }
 
-        printf("MY INSERT: mmc_init() prepend mmc_set_bus_width(mmc, 1)\n");
+	err = mmc->init(mmc);
+
+	if (err)
+		return err;
+
 	mmc_set_bus_width(mmc, 1);
-        printf("MY INSERT: mmc_init()         mmc_set_bus_width(mmc, 1)\n");
-        printf("MY INSERT: mmc_init() prepend mmc_set_clock(mmc, 1)\n");
 	mmc_set_clock(mmc, 1);
-        printf("MY INSERT: mmc_init()         mmc_set_clock(mmc, 1)\n");
 
 	/* Reset the Card */
-        printf("MY INSERT: mmc_init() prepend mmc_go_idle(mmc)\n");
 	err = mmc_go_idle(mmc);
-        printf("MY INSERT: mmc_init()         mmc_go_idle(mmc)\n");        
-	if (err) {
-                printf("MY INSERT: mmc_init() 2 err return %d\n", err);
+
+	if (err)
 		return err;
-        }
 
 	/* The internal partition reset to user partition(0) at every CMD0*/
 	mmc->part_num = 0;
 
 	/* Test for SD version 2 */
-        printf("MY INSERT: mmc_init() prepend err = mmc_send_if_cond(mmc)\n");
 	err = mmc_send_if_cond(mmc);
-        printf("MY INSERT: mmc_init()         err = mmc_send_if_cond(mmc)\n");
+
 	/* Now try to get the SD card's operating condition */
-        printf("MY INSERT: mmc_init() prepend err = sd_send_op_cond(mmc)\n");
 	err = sd_send_op_cond(mmc);
-        printf("MY INSERT: mmc_init()         err = sd_send_op_cond(mmc)\n");
+
 	/* If the command timed out, we check for an MMC card */
 	if (err == TIMEOUT) {
-                printf("MY INSERT: mmc_init() err == TIMEOUT\n");
-                printf("MY INSERT: mmc_init() prepend err = mmc_send_op_cond(mmc)\n");
 		err = mmc_send_op_cond(mmc);
-                printf("MY INSERT: mmc_init()         err = mmc_send_op_cond(mmc)\n");
+
 		if (err) {
 			printf("Card did not respond to voltage select!\n");
 			return UNUSABLE_ERR;
 		}
 	}
-        printf("MY INSERT: mmc_init() prepend err = mmc_startup(mmc)\n");
-	err = mmc_startup(mmc);
-        printf("MY INSERT: mmc_init()         err = mmc_startup(mmc)\n");
-	if (err) {
-                printf("MY INSERT: mmc_init() err mmc->has_init = 0\n");
-		mmc->has_init = 0;
-        }
-	else {
-                printf("MY INSERT: mmc_init() err mmc->has_init = 1\n");
-		mmc->has_init = 1;
-        }
 
-        printf("MY INSERT: mmc_init() 3 err return %d\n", err);
+	err = mmc_startup(mmc);
+	if (err)
+		mmc->has_init = 0;
+	else
+		mmc->has_init = 1;
 	return err;
 }
 
