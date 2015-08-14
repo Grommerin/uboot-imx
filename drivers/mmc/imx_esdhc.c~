@@ -553,7 +553,7 @@ static void esdhc_uhsi_tuning(struct mmc *mmc, uint val)
 static int esdhc_init(struct mmc *mmc)
 {
 
-        printf("MY INSERT: start imx esdhc_init()\n");
+        printf("MY INSERT: start esdhc_init()\n");
 
 	struct fsl_esdhc_cfg *cfg = (struct fsl_esdhc_cfg *)mmc->priv;
 	struct fsl_esdhc *regs = (struct fsl_esdhc *)cfg->esdhc_base;

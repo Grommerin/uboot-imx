@@ -491,6 +491,8 @@ static int mxcmci_init(struct mmc *mmc)
 
 static int mxcmci_initialize(bd_t *bis)
 {
+        printf("MY INSERT: start mxcmci_initialize()\n");
+
 	struct mmc *mmc = NULL;
 
 	mmc = malloc(sizeof(struct mmc));

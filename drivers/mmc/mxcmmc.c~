@@ -468,10 +468,12 @@ static void mxcmci_set_ios(struct mmc *mmc)
 
 static int mxcmci_init(struct mmc *mmc)
 {
+        printf("MY INSERT: start mxcmci_init()\n");
+        
 	struct mxcmci_host *host = mmc->priv;
-
+        printf("MY INSERT: prepend mxcmci_softreset(host)\n");
 	mxcmci_softreset(host);
-
+        printf("MY INSERT: prepend host->rev_no = readw(&host->base->rev_no))\n");
 	host->rev_no = readw(&host->base->rev_no);
 	if (host->rev_no != 0x400) {
 		printf("wrong rev.no. 0x%08x. aborting.\n",
@@ -483,7 +485,7 @@ static int mxcmci_init(struct mmc *mmc)
 	writew(0x2db4, &host->base->read_to);
 
 	writel(0, &host->base->int_cntr);
-
+        printf("MY INSERT: mxcmci_init() return 0\n");
 	return 0;
 }
 
