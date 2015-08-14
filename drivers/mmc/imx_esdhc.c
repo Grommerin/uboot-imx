@@ -553,7 +553,7 @@ static void esdhc_uhsi_tuning(struct mmc *mmc, uint val)
 static int esdhc_init(struct mmc *mmc)
 {
 
-        printf("MY INSERT: start imx esdhc_init()\n");
+        printf(" MY INSERT: esdhc_init() imx start\n");
 
 	struct fsl_esdhc_cfg *cfg = (struct fsl_esdhc_cfg *)mmc->priv;
 	struct fsl_esdhc *regs = (struct fsl_esdhc *)cfg->esdhc_base;
@@ -576,7 +576,7 @@ static int esdhc_init(struct mmc *mmc)
         printf("  MY INSERT: esdhc_init()         while (readl(&regs->sysctl) & SYSCTL_RSTA)\n");
 
         if (timeout == 0) {
-                printf("################ esdhc_init reset loop timeout end ##################\n");
+                printf("  ################ esdhc_init reset loop timeout end ##################\n");
         }
 
 	/* RSTA doesn't reset MMC_BOOT register, so manually reset it */
@@ -592,9 +592,9 @@ static int esdhc_init(struct mmc *mmc)
         printf("  MY INSERT: esdhc_init()         writel(0, &regs->clktunectrlstatus)\n");
 
 	/* Put VEND_SPEC to default value */
-        printf("  MY INSERT: prepend writel(VENDORSPEC_INIT, &regs->vendorspec)\n");
+        printf("  MY INSERT: esdhc_init() prepend writel(VENDORSPEC_INIT, &regs->vendorspec)\n");
 	writel(VENDORSPEC_INIT, &regs->vendorspec);
-        printf("  MY INSERT:         writel(VENDORSPEC_INIT, &regs->vendorspec)\n");
+        printf("  MY INSERT: esdhc_init()         writel(VENDORSPEC_INIT, &regs->vendorspec)\n");
 
 #ifdef CONFIG_IMX_ESDHC_V1
         printf("  MY INSERT: esdhc_init() prepend tmp = readl(&regs->sysctl) | (SYSCTL_HCKEN | SYSCTL_IPGEN)\n");
