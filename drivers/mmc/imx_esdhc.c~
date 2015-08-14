@@ -180,11 +180,22 @@ esdhc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
 	writel(tmp, &regs->irqstaten);
 
 	/* Wait for the bus to be idle */
+        u32 timeout = 1000;
 	while ((readl(&regs->prsstat) & PRSSTAT_CICHB) ||
-			(readl(&regs->prsstat) & PRSSTAT_CIDHB))
-			;
+			(readl(&regs->prsstat) & PRSSTAT_CIDHB)) {
+		__udelay(1);
+                if (!timeout--) {
+                        return -ETIMEDOUT;
+                }
+        }
 
-	while (readl(&regs->prsstat) & PRSSTAT_DLA);
+        timeout = 1000;
+	while (readl(&regs->prsstat) & PRSSTAT_DLA) {
+		__udelay(1);
+                if (!timeout--) {
+                        return -ETIMEDOUT;
+                }
+        }
 
 	/* Set up for a data transfer if we have one */
 	if (data) {
@@ -225,8 +236,13 @@ esdhc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
 	writel(0, &regs->irqsigen);
 
 	/* Wait for the command to complete */
-	while (!(readl(&regs->irqstat) & (IRQSTAT_CC | IRQSTAT_CTOE)))
-		;
+        timeout = 1000;
+	while (!(readl(&regs->irqstat) & (IRQSTAT_CC | IRQSTAT_CTOE))) {
+		__udelay(1);
+                if (!timeout--) {
+                        return -ETIMEDOUT;
+                }
+        }
 
 	irqstat = readl(&regs->irqstat);
 	writel(irqstat, &regs->irqstat);
@@ -234,14 +250,24 @@ esdhc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
 	/* Reset CMD and DATA portions on error */
 	if (irqstat & (CMD_ERR | IRQSTAT_CTOE)) {
 		writel(readl(&regs->sysctl) | SYSCTL_RSTC, &regs->sysctl);
-		while (readl(&regs->sysctl) & SYSCTL_RSTC)
-			;
+                timeout = 1000;
+		while (readl(&regs->sysctl) & SYSCTL_RSTC) {
+		        __udelay(1);
+                        if (!timeout--) {
+                                return -ETIMEDOUT;
+                        }
+                }			
 
 		if (data) {
 			writel(readl(&regs->sysctl) | SYSCTL_RSTD,
 				&regs->sysctl);
-			while (readl(&regs->sysctl) & SYSCTL_RSTD)
-				;
+                        timeout = 1000;
+			while (readl(&regs->sysctl) & SYSCTL_RSTD) {
+		                __udelay(1);
+                                if (!timeout--) {
+                                        return -ETIMEDOUT;
+                                }
+                        }		
 		}
 
 		/* Restore auto-clock gate if error */
@@ -274,8 +300,14 @@ esdhc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
 		/* Turn on SD clock */
 		writel(reg | VENDORSPEC_FRC_SDCLK_ON, &regs->vendorspec);
 
-		while (!(readl(&regs->prsstat) & PRSSTAT_DAT0))
-			;
+                timeout = 1000;
+		while (!(readl(&regs->prsstat) & PRSSTAT_DAT0)) {
+		        __udelay(1);
+                        if (!timeout--) {
+                                return -ETIMEDOUT;
+                        }
+                }
+			
 
 		/* restore SD clock status */
 		writel(reg, &regs->vendorspec);
@@ -328,8 +360,14 @@ esdhc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
 			tmp_ptr = (u32 *)data->dest;
 
 			for (i = 0; i < (block_cnt); ++i) {
-				while (!(readl(&regs->irqstat) & IRQSTAT_BRR)) 
-					;
+                                timeout = 1000;
+				while (!(readl(&regs->irqstat) & IRQSTAT_BRR)) {
+		                        __udelay(1);
+                                        if (!timeout--) {
+                                                return -ETIMEDOUT;
+                                        }
+                                } 
+					
 
 				for (j = 0; j < (block_size >> 2); ++j, ++tmp_ptr) {
 					*tmp_ptr = readl(&regs->datport);

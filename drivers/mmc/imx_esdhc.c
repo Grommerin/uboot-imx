@@ -183,7 +183,7 @@ esdhc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
         u32 timeout = 1000;
 	while ((readl(&regs->prsstat) & PRSSTAT_CICHB) ||
 			(readl(&regs->prsstat) & PRSSTAT_CIDHB)) {
-		__udelay(1);
+		udelay(1);
                 if (!timeout--) {
                         return -ETIMEDOUT;
                 }
@@ -191,7 +191,7 @@ esdhc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
 
         timeout = 1000;
 	while (readl(&regs->prsstat) & PRSSTAT_DLA) {
-		__udelay(1);
+		udelay(1);
                 if (!timeout--) {
                         return -ETIMEDOUT;
                 }
@@ -238,7 +238,7 @@ esdhc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
 	/* Wait for the command to complete */
         timeout = 1000;
 	while (!(readl(&regs->irqstat) & (IRQSTAT_CC | IRQSTAT_CTOE))) {
-		__udelay(1);
+		udelay(1);
                 if (!timeout--) {
                         return -ETIMEDOUT;
                 }
@@ -252,7 +252,7 @@ esdhc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
 		writel(readl(&regs->sysctl) | SYSCTL_RSTC, &regs->sysctl);
                 timeout = 1000;
 		while (readl(&regs->sysctl) & SYSCTL_RSTC) {
-		        __udelay(1);
+		        udelay(1);
                         if (!timeout--) {
                                 return -ETIMEDOUT;
                         }
@@ -263,7 +263,7 @@ esdhc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
 				&regs->sysctl);
                         timeout = 1000;
 			while (readl(&regs->sysctl) & SYSCTL_RSTD) {
-		                __udelay(1);
+		                udelay(1);
                                 if (!timeout--) {
                                         return -ETIMEDOUT;
                                 }
@@ -302,7 +302,7 @@ esdhc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
 
                 timeout = 1000;
 		while (!(readl(&regs->prsstat) & PRSSTAT_DAT0)) {
-		        __udelay(1);
+		        udelay(1);
                         if (!timeout--) {
                                 return -ETIMEDOUT;
                         }
@@ -362,7 +362,7 @@ esdhc_send_cmd(struct mmc *mmc, struct mmc_cmd *cmd, struct mmc_data *data)
 			for (i = 0; i < (block_cnt); ++i) {
                                 timeout = 1000;
 				while (!(readl(&regs->irqstat) & IRQSTAT_BRR)) {
-		                        __udelay(1);
+		                        udelay(1);
                                         if (!timeout--) {
                                                 return -ETIMEDOUT;
                                         }
