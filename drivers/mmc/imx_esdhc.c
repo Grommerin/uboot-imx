@@ -568,10 +568,25 @@ static int esdhc_init(struct mmc *mmc)
         printf("  MY INSERT: esdhc_init()         writel(tmp, &regs->sysctl)\n");
 
         printf("  MY INSERT: esdhc_init() prepend while (readl(&regs->sysctl) & SYSCTL_RSTA)\n");
-	while (readl(&regs->sysctl) & SYSCTL_RSTA) {
-		;
+        u32 timeout = 100;
+	while ((readl(&regs->sysctl) & SYSCTL_RSTA) && (timeout > 0)) {
+                udelay(100);
+                timeout--;
         }
         printf("  MY INSERT: esdhc_init()         while (readl(&regs->sysctl) & SYSCTL_RSTA)\n");
+
+        if (timeout == 0) {
+                printf("esdhc_init reset loop timeout end. Try again\n");
+                printf("    MY INSERT: esdhc_init() prepend writel(tmp, &regs->sysctl)\n");
+                writel(tmp, &regs->sysctl);
+                printf("    MY INSERT: esdhc_init()         writel(tmp, &regs->sysctl)\n");
+
+                printf("    MY INSERT: esdhc_init() prepend while (readl(&regs->sysctl) & SYSCTL_RSTA)\n");
+	        while (readl(&regs->sysctl) & SYSCTL_RSTA) {
+                        ;
+                }
+                printf("    MY INSERT: esdhc_init()         while (readl(&regs->sysctl) & SYSCTL_RSTA)\n");
+        }
 
 	/* RSTA doesn't reset MMC_BOOT register, so manually reset it */
         printf("  MY INSERT: esdhc_init() prepend writel(0, &regs->mmcboot)\n");
