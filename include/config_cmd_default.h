@@ -20,7 +20,7 @@
 #define CONFIG_CMD_BOOTD	/* bootd			*/
 #define CONFIG_CMD_CONSOLE	/* coninfo			*/
 #define CONFIG_CMD_ECHO		/* echo arguments		*/
-// MY INSERT#define CONFIG_CMD_FPGA		/* FPGA configuration Support	*/
+// MY INSERT #define CONFIG_CMD_FPGA		/* FPGA configuration Support	*/
 #define CONFIG_CMD_IMI		/* iminfo			*/
 #define CONFIG_CMD_ITEST	/* Integer (and string) test	*/
 #ifndef CONFIG_SYS_NO_FLASH

@@ -583,7 +583,7 @@ static int mmc_send_op_cond(struct mmc *mmc)
 		if (err)
 			return err;
 
-		udelay(1000);
+		udelay(100); // MY INSERT (reduced x10)
 	} while (!(cmd.response[0] & OCR_BUSY) && timeout--);
 
 	if (timeout <= 0)

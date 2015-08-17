@@ -415,7 +415,7 @@ void set_sysctl(struct mmc *mmc, uint clock)
 	tmp = (readl(&regs->sysctl) & (~SYSCTL_CLOCK_MASK)) | clk;
 	writel(tmp, &regs->sysctl);
 
-	udelay(10000);
+	udelay(5000); // MY INSERT (reduced x2)
 
 #ifdef CONFIG_IMX_ESDHC_V1
 	tmp = readl(&regs->sysctl) | SYSCTL_PEREN;

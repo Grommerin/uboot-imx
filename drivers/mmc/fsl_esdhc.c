@@ -259,7 +259,7 @@ void set_sysctl(struct mmc *mmc, uint clock)
 
 	clrsetbits_be32(&regs->sysctl, SYSCTL_CLOCK_MASK, clk);
 
-	udelay(10000);
+	udelay(5000); // MY INSERT (reduced x2)
 
 	setbits_be32(&regs->sysctl, SYSCTL_PEREN);
 }
@@ -300,7 +300,7 @@ static int esdhc_init(struct mmc *mmc)
 	out_be32(&regs->proctl, PROCTL_INIT);
 
 	while (!(in_be32(&regs->prsstat) & PRSSTAT_CINS) && --timeout)
-		udelay(1000);
+		udelay(100); // MY INSERT (reduced x10)
 
 	if (timeout <= 0)
 		return NO_CARD_ERR;
