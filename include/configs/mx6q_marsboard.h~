@@ -256,7 +256,7 @@
 	#define CONFIG_SYS_FSL_ESDHC_ADDR       0
 	#define CONFIG_SYS_MMC_ENV_DEV  2
         #define CONFIG_DOS_PARTITION	1
-// MY INSERT	#define CONFIG_CMD_FAT		1
+	#define CONFIG_CMD_FAT		1
 	#define CONFIG_CMD_EXT2		1
 
 	/* detect whether SD1, 2, 3, or 4 is boot device */
