@@ -124,7 +124,7 @@
 		"bootargs_mmc=setenv bootargs ${bootargs} " \
 			"root=/dev/mmcblk0p1 rootwait rw\0" \
 		"bootcmd_mmc=run bootargs_mmc;mmc dev 1;" \
-			"mmc read ${loadaddr} 0x200 0x1400;bootm\0" \
+			"mmc read ${loadaddr} 0x800 0x600;bootm\0" \
 		"bootcmd=run bootcmd_mmc\0" \
 		"clearenv=sf probe 0 && sf erase 0xc0000 0x2000 && " \
 			"echo restored environment to factory default\0" \
