@@ -96,6 +96,22 @@
 
 /* Enable below configure when supporting nand */
 
+
+// MY INSERT
+#undef CONFIG_CMD_DHCP
+#undef CONFIG_CMD_MII
+#undef CONFIG_CMD_NET
+#undef CONFIG_CMD_PING
+#undef CONFIG_CMD_NFS
+#undef CONFIG_NET_MULTI
+#undef CONFIG_NET_RETRY_COUNT
+#undef CONFIG_BOOTP_SUBNETMASK
+#undef CONFIG_BOOTP_GATEWAY
+#undef CONFIG_BOOTP_DNS
+// MY INSERT END
+
+
+
 #define CONFIG_CMD_MMC
 #define CONFIG_CMD_SF
 #define CONFIG_CMD_ENV
@@ -117,12 +133,10 @@
 #define CONFIG_RD_LOADADDR      0x11000000
 
 #define	CONFIG_EXTRA_ENV_SETTINGS \
-		"netdev=eth0\0" \
-		"ethprime=FEC0\0" \
                 "autostart=yes\0" \
 		"uboot=u-boot.bin\0" \
 		"kernel=uImage\0" \
-		"bootargs=console=ttymxc1,115200 video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24\0" \
+		"bootargs=console=ttymxc1,115200\0" \
 		"bootargs_nfs=setenv bootargs ${bootargs} root=/dev/nfs " \
 			"ip=dhcp nfsroot=${serverip}:${nfsroot},v3,tcp " \
 			"enable_wait_mode=off\0" \
@@ -160,7 +174,8 @@
 #define CONFIG_SYS_BARGSIZE CONFIG_SYS_CBSIZE /* Boot Argument Buffer Size */
 
 #define CONFIG_SYS_MEMTEST_START	0x10000000	/* memtest works on */
-#define CONFIG_SYS_MEMTEST_END		0x10010000
+//#define CONFIG_SYS_MEMTEST_END		0x10010000
+#define CONFIG_SYS_MEMTEST_END		0x10000100
 
 #undef	CONFIG_SYS_CLKS_IN_HZ		/* everything, incl board info, in Hz */
 
@@ -252,12 +267,12 @@
 	#define CONFIG_SYS_FSL_USDHC_NUM        2
 	#define CONFIG_SYS_FSL_ESDHC_ADDR       0
 	#define CONFIG_SYS_MMC_ENV_DEV  2
-	#define CONFIG_DOS_PARTITION	1
-	#define CONFIG_CMD_FAT		1
+// MY INSERT	#define CONFIG_DOS_PARTITION	1
+// MY INSERT	#define CONFIG_CMD_FAT		1
 	#define CONFIG_CMD_EXT2		1
 
 	/* detect whether SD1, 2, 3, or 4 is boot device */
-	#define CONFIG_DYNAMIC_MMC_DEVNO
+// MY INSERT	#define CONFIG_DYNAMIC_MMC_DEVNO
 
 	/* Setup target delay in DDR mode for each SD port */
 	#define CONFIG_GET_DDR_TARGET_DELAY
