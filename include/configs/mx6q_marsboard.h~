@@ -80,15 +80,15 @@
 
 #include <config_cmd_default.h>
 
-#define CONFIG_CMD_PING
-#define CONFIG_CMD_DHCP
-#define CONFIG_CMD_MII
-#define CONFIG_CMD_NET
-#define CONFIG_NET_RETRY_COUNT  100
-#define CONFIG_NET_MULTI 1
-#define CONFIG_BOOTP_SUBNETMASK
-#define CONFIG_BOOTP_GATEWAY
-#define CONFIG_BOOTP_DNS
+// NY INSERT #define CONFIG_CMD_PING
+// NY INSERT #define CONFIG_CMD_DHCP
+// NY INSERT #define CONFIG_CMD_MII
+// NY INSERT #define CONFIG_CMD_NET
+// NY INSERT #define CONFIG_NET_RETRY_COUNT  100
+// NY INSERT #define CONFIG_NET_MULTI 1
+// NY INSERT #define CONFIG_BOOTP_SUBNETMASK
+// NY INSERT #define CONFIG_BOOTP_GATEWAY
+// NY INSERT #define CONFIG_BOOTP_DNS
 
 // NY INSERT #define CONFIG_CMD_SPI
 // NY INSERT #define CONFIG_CMD_I2C
@@ -137,10 +137,6 @@
 		"uboot=u-boot.bin\0" \
 		"kernel=uImage\0" \
 		"bootargs=console=ttymxc1,115200\0" \
-		"bootargs_nfs=setenv bootargs ${bootargs} root=/dev/nfs " \
-			"ip=dhcp nfsroot=${serverip}:${nfsroot},v3,tcp " \
-			"enable_wait_mode=off\0" \
-		"bootcmd_net=dhcp; run bootargs_nfs;bootm\0" \
 		"bootargs_mmc=setenv bootargs ${bootargs} " \
 			"root=/dev/mmcblk0p1 rootwait rw\0" \
 		"bootcmd_mmc=run bootargs_mmc;mmc dev 1;" \

@@ -32,7 +32,7 @@
 #define CONFIG_CMD_MEMORY	/* md mm nm mw cp cmp crc base loop mtest */
 #define CONFIG_CMD_MISC		/* Misc functions like sleep etc*/
 // MY INSERT #define CONFIG_CMD_NET		/* bootp, tftpboot, rarpboot	*/
-#define CONFIG_CMD_NFS		/* NFS support			*/
+// MY INSERT #define CONFIG_CMD_NFS		/* NFS support			*/
 #define CONFIG_CMD_RUN		/* run command in env variable	*/
 #define CONFIG_CMD_SAVEENV	/* saveenv			*/
 #define CONFIG_CMD_SETGETDCR	/* DCR support on 4xx		*/
