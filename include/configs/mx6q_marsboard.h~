@@ -96,6 +96,22 @@
 
 /* Enable below configure when supporting nand */
 
+
+// MY INSERT
+#undef CONFIG_CMD_DHCP
+#undef CONFIG_CMD_MII
+#undef CONFIG_CMD_NET
+#undef CONFIG_CMD_PING
+#undef CONFIG_CMD_NFS
+#undef CONFIG_NET_MULTI
+#undef CONFIG_NET_RETRY_COUNT
+#undef CONFIG_BOOTP_SUBNETMASK
+#undef CONFIG_BOOTP_GATEWAY
+#undef CONFIG_BOOTP_DNS
+// MY INSERT END
+
+
+
 #define CONFIG_CMD_MMC
 #define CONFIG_CMD_SF
 #define CONFIG_CMD_ENV
@@ -117,8 +133,6 @@
 #define CONFIG_RD_LOADADDR      0x11000000
 
 #define	CONFIG_EXTRA_ENV_SETTINGS \
-		"netdev=eth0\0" \
-		"ethprime=FEC0\0" \
                 "autostart=yes\0" \
 		"uboot=u-boot.bin\0" \
 		"kernel=uImage\0" \
