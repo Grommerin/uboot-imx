@@ -124,7 +124,7 @@
 		"bootargs_mmc=setenv bootargs ${bootargs} " \
 			"root=/dev/mmcblk0p1 rootwait rw\0" \
 		"bootcmd_mmc=run bootargs_mmc;mmc dev 1;" \
-			"mmc read ${loadaddr} 0x800 0x1000;bootm\0" \
+			"mmc read ${loadaddr} 0x800 0x1400;bootm\0" \
 		"bootcmd=run bootcmd_mmc\0" \
 		"clearenv=sf probe 0 && sf erase 0xc0000 0x2000 && " \
 			"echo restored environment to factory default\0" \
@@ -148,7 +148,7 @@
 #undef CONFIG_SYS_LONGHELP
 #define CONFIG_SYS_PROMPT		"MX6Q MARSBOARD U-Boot by Strim-Tech> "
 #define CONFIG_AUTO_COMPLETE
-#define CONFIG_SYS_CBSIZE		256	/* Console I/O Buffer Size */
+#define CONFIG_SYS_CBSIZE		128	/* Console I/O Buffer Size */
 /* Print Buffer Size */
 #define CONFIG_SYS_PBSIZE (CONFIG_SYS_CBSIZE + sizeof(CONFIG_SYS_PROMPT) + 16)
 #define CONFIG_SYS_MAXARGS	16	/* max number of command args */
