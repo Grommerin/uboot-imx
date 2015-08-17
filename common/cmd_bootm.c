@@ -739,7 +739,7 @@ static image_header_t *image_get_kernel (ulong img_addr, int verify)
 	image_print_contents (hdr);
 
 	if (verify) {
-		puts ("   My Verifying Checksum ... OK\n");
+		puts ("   My Verifying Checksum 1 ... OK\n");
 /* MY INSERT
 		if (!image_check_dcrc (hdr)) {
 			printf ("Bad Data CRC\n");

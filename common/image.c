@@ -384,7 +384,7 @@ static image_header_t* image_get_ramdisk (ulong rd_addr, uint8_t arch,
 	image_print_contents (rd_hdr);
 
 	if (verify) {
-		puts ("   My Verifying Checksum ... OK\n");
+		puts ("   My Verifying Checksum 2 ... OK\n");
 /* NY INSERT
 		if (!image_check_dcrc (rd_hdr)) {
 			puts ("Bad Data CRC\n");

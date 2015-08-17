@@ -300,7 +300,7 @@ static int esdhc_init(struct mmc *mmc)
 	out_be32(&regs->proctl, PROCTL_INIT);
 
 	while (!(in_be32(&regs->prsstat) & PRSSTAT_CINS) && --timeout)
-		udelay(100); // MY INSERT (reduced x10)
+		udelay(500); // MY INSERT (reduced x2)
 
 	if (timeout <= 0)
 		return NO_CARD_ERR;

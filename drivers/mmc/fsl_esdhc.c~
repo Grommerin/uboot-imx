@@ -259,7 +259,7 @@ void set_sysctl(struct mmc *mmc, uint clock)
 
 	clrsetbits_be32(&regs->sysctl, SYSCTL_CLOCK_MASK, clk);
 
-	udelay(5000); // MY INSERT
+	udelay(5000); // MY INSERT (reduced x2)
 
 	setbits_be32(&regs->sysctl, SYSCTL_PEREN);
 }
