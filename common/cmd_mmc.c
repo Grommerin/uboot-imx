@@ -162,7 +162,7 @@ int do_mmcinfo(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 	if (mmc) {
 		mmc_init(mmc);
 
-		print_mmcinfo(mmc);
+// MY INSERT		print_mmcinfo(mmc);
 		return 0;
 	} else {
 		printf("no mmc device at slot %x\n", curr_device);

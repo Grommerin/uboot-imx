@@ -139,6 +139,12 @@
 		"nfsroot=_ROOTFS_PATH_IN_NFS_\0"
 
 
+/*
+		"bootcmd_mmc=run bootargs_mmc;mmc dev 1;" \
+			"mmc read ${loadaddr} 0x800 0x1400;bootm\0" \
+*/
+
+
 #define CONFIG_ARP_TIMEOUT	200UL
 
 /*
