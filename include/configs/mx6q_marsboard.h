@@ -120,7 +120,7 @@
                 "autostart=yes\0" \
 		"uboot=u-boot.bin\0" \
 		"kernel=uImage\0" \
-		"bootcmd=root=/dev/mmcblk0p1 rootwait rw;mmc dev 1;" \
+		"bootcmd=setenv root=/dev/mmcblk0p1 rootwait rw;mmc dev 1;" \
 			"mmc read ${loadaddr} 0x800 0x1400;bootm\0" \
 		"clearenv=sf probe 0 && sf erase 0xc0000 0x2000 && " \
 			"echo restored environment to factory default\0" \
