@@ -427,6 +427,11 @@ u32 get_ddr_delay(struct fsl_esdhc_cfg *cfg)
 
 int board_init(void)
 {
+#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
+	hw_watchdog_init();
+        hw_watchdog_reset();
+#endif
+
 #ifdef CONFIG_MFG
 /* MFG firmware need reset usb to avoid host crash firstly */
 #define USBCMD 0x140
@@ -654,10 +659,7 @@ int mx6_rgmii_rework(char *devname, int phy_addr)
 void enet_board_init(void)
 {
 	printf("----enet_board_init: phy reset\n");
-#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
-	hw_watchdog_init();
-        hw_watchdog_reset();
-#endif
+
 	iomux_v3_cfg_t enet_reset =
 	    (MX6Q_PAD_EIM_D31__GPIO_3_31 &
 	     ~MUX_PAD_CTRL_MASK) | MUX_PAD_CTRL(0x48);
