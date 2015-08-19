@@ -1,0 +1,32 @@
++/*
++ * watchdog.c - driver for i.mx on-chip watchdog
++ *
++ * Licensed under the GPL-2 or later.
++ */
++
++#include <common.h>
++#include <asm/io.h>
++#include <watchdog.h>
++#include <asm/arch/imx-regs.h>
++
++struct watchdog_regs {
++	u16	wcr;
++	u16	wsr;
++	u16	wrsr;
++	u16	wicr;
++	u16	wmcr;
++};
++
++void hw_watchdog_reset(void)
++{
++	struct watchdog_regs *wdog = (struct watchdog_regs *)WDOG1_BASE_ADDR;
++	writew(0x5555, &wdog->wsr);
++	writew(0xaaaa, &wdog->wsr);
++}
++
++void hw_watchdog_init(void)
++{
++	struct watchdog_regs *wdog = (struct watchdog_regs *)WDOG1_BASE_ADDR;
++	writew(0xFF8F, &wdog->wcr);
++	hw_watchdog_reset();
++}
