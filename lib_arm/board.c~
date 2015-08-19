@@ -297,9 +297,7 @@ init_fnc_t *init_sequence[] = {
 	arm_pci_init,
 #endif
 	display_dram_config,
-#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
 	hw_watchdog_init,
-#endif
 	NULL,
 };
 
