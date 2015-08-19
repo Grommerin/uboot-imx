@@ -656,6 +656,7 @@ void enet_board_init(void)
 	printf("----enet_board_init: phy reset\n");
 #if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
 	hw_watchdog_init();
+        hw_watchdog_reset();
 #endif
 	iomux_v3_cfg_t enet_reset =
 	    (MX6Q_PAD_EIM_D31__GPIO_3_31 &
