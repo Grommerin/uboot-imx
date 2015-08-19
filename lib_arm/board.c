@@ -56,9 +56,6 @@
 #ifdef CONFIG_DRIVER_LAN91C96
 #include "../drivers/net/lan91c96.h"
 #endif
-#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
-#include "watchdog.h"
-#endif
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -300,9 +297,6 @@ init_fnc_t *init_sequence[] = {
 	arm_pci_init,
 #endif
 	display_dram_config,
-#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
-	hw_watchdog_init,
-#endif
 	NULL,
 };
 

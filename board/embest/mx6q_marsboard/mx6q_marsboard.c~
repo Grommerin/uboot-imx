@@ -427,11 +427,6 @@ u32 get_ddr_delay(struct fsl_esdhc_cfg *cfg)
 
 int board_init(void)
 {
-#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
-	hw_watchdog_init();
-        hw_watchdog_reset();
-#endif
-
 #ifdef CONFIG_MFG
 /* MFG firmware need reset usb to avoid host crash firstly */
 #define USBCMD 0x140
@@ -682,6 +677,9 @@ void enet_board_init(void)
 	set_gpio_output_val(GPIO3_BASE_ADDR, (1 << 31), 1);
 //	mxc_iomux_v3_setup_multiple_pads(enet_pads_final,
 //					 ARRAY_SIZE(enet_pads_final));
+#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
+        hw_watchdog_init();
+#endif
 }
 
 int checkboard(void)

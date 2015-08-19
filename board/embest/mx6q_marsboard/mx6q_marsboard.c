@@ -445,11 +445,6 @@ int board_init(void)
 
 	setup_uart();
 
-#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
-	hw_watchdog_init();
-        hw_watchdog_reset();
-#endif
-
 #ifdef CONFIG_I2C_MXC
 	setup_i2c(CONFIG_SYS_I2C_PORT);
 #endif
@@ -682,6 +677,9 @@ void enet_board_init(void)
 	set_gpio_output_val(GPIO3_BASE_ADDR, (1 << 31), 1);
 //	mxc_iomux_v3_setup_multiple_pads(enet_pads_final,
 //					 ARRAY_SIZE(enet_pads_final));
+#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
+        hw_watchdog_init();
+#endif
 }
 
 int checkboard(void)

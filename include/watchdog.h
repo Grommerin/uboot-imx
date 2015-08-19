@@ -46,8 +46,7 @@
 
 		#define WATCHDOG_RESET hw_watchdog_reset
 	#endif /* __ASSEMBLY__ */
-		
-	extern int hw_watchdog_init(void);
+		extern void hw_watchdog_init(void);
 #else
 	/*
 	 * Maybe a software watchdog?
