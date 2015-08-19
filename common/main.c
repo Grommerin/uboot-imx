@@ -277,8 +277,6 @@ static __inline__ int abortboot(int bootdelay)
 
 void main_loop (void)
 {
-        printf("MY INSERT: main_loop() start\n");
-
 #ifndef CONFIG_SYS_HUSH_PARSER
 	static char lastcommand[CONFIG_SYS_CBSIZE] = { 0, };
 	int len;
