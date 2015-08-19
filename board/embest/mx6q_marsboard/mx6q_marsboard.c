@@ -427,11 +427,6 @@ u32 get_ddr_delay(struct fsl_esdhc_cfg *cfg)
 
 int board_init(void)
 {
-#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
-	hw_watchdog_init();
-        hw_watchdog_reset();
-#endif
-
 #ifdef CONFIG_MFG
 /* MFG firmware need reset usb to avoid host crash firstly */
 #define USBCMD 0x140
@@ -449,6 +444,11 @@ int board_init(void)
 	gd->bd->bi_boot_params = PHYS_SDRAM_1 + 0x100;
 
 	setup_uart();
+
+#if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
+	hw_watchdog_init();
+        hw_watchdog_reset();
+#endif
 
 #ifdef CONFIG_I2C_MXC
 	setup_i2c(CONFIG_SYS_I2C_PORT);
