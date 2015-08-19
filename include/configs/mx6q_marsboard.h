@@ -120,7 +120,10 @@
                 "autostart=yes\0" \
 		"uboot=u-boot.bin\0" \
 		"kernel=uImage\0" \
-		"bootcmd=setenv root=/dev/mmcblk0p1 rootwait rw;mmc dev 1;" \
+		"bootargs=console=ttymxc1,115200\0" \
+		"bootargs_mmc=setenv bootargs ${bootargs} " \
+			"root=/dev/mmcblk0p1 rootwait rw\0" \
+		"bootcmd=run bootargs_mmc; mmc dev 1;" \
 			"mmc read ${loadaddr} 0x800 0x1400;bootm\0" \
 		"clearenv=sf probe 0 && sf erase 0xc0000 0x2000 && " \
 			"echo restored environment to factory default\0" \
@@ -131,14 +134,8 @@
 					"source 10008000 ; " \
 				"done ; " \
 			"done\0" \
-		"bootfile=_BOOT_FILE_PATH_IN_TFTP_\0" \
-		"nfsroot=_ROOTFS_PATH_IN_NFS_\0"
+		"bootfile=_BOOT_FILE_PATH_IN_TFTP_\0"
 
-/*
-		"bootargs=console=ttymxc1,115200\0" \
-		"bootargs_mmc=setenv bootargs ${bootargs} " \
-			"root=/dev/mmcblk0p1 rootwait rw\0" \
-*/
 
 #define CONFIG_ARP_TIMEOUT	200UL
 

@@ -19,6 +19,7 @@ struct watchdog_regs {
 
 void hw_watchdog_reset(void)
 {
+        printf("MY INSERT: hw_watchdog_reset()\n");
 	struct watchdog_regs *wdog = (struct watchdog_regs *)WDOG1_BASE_ADDR;
 	writew(0x5555, &wdog->wsr);
 	writew(0xaaaa, &wdog->wsr);
@@ -26,7 +27,8 @@ void hw_watchdog_reset(void)
 
 void hw_watchdog_init(void)
 {
+        printf("MY INSERT: hw_watchdog_init()\n");
 	struct watchdog_regs *wdog = (struct watchdog_regs *)WDOG1_BASE_ADDR;
-	writew(0xFF8F, &wdog->wcr);
+	writew(0x028F, &wdog->wcr);
 	hw_watchdog_reset();
 }
