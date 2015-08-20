@@ -40,6 +40,7 @@ void hw_watchdog_init(void)
 
 void hw_watchdog_fin(void)
 {
+	hw_watchdog_reset();
 	printf("MY INSERT: hw_watchdog_fin()\n");
 	struct watchdog_regs *wdog = (struct watchdog_regs *)WDOG1_BASE_ADDR;	
 	u16 reg_wcr = readw(&wdog->wcr);
