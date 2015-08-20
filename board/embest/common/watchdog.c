@@ -31,8 +31,15 @@ void hw_watchdog_init(void)
 	printf("MY INSERT: hw_watchdog_init() wmcr\n");
 	writew(0x0000, &wdog->wmcr);
 	u16 reg_wcr = readw(&wdog->wcr);
-	printf("MY INSERT: hw_watchdog_init() read wcr = %016x\n", reg_wcr);
-	
+	printf("MY INSERT: hw_watchdog_init() read wcr = %#08x\n", reg_wcr);
+	reg_wcr &= 0x00FF;
+	reg_wcr |= 0x1000;
+	printf("MY INSERT: hw_watchdog_init() reg_wcr  = %#08x\n", reg_wcr);
+	writew(reg_wcr, &wdog->wcr);
+	reg_wcr |= 0x00a7;
+	printf("MY INSERT: hw_watchdog_init() reg_wcr  = %#08x\n", reg_wcr);
 	printf("MY INSERT: hw_watchdog_init() wcr\n");
-	writew(0x10a7, &wdog->wcr);
+	writew(reg_wcr, &wdog->wcr);
+	reg_wcr = readw(&wdog->wcr);
+	printf("MY INSERT: hw_watchdog_init() read wcr = %#08x\n", reg_wcr);
 }
