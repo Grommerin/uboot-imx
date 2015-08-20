@@ -10,7 +10,8 @@
 #include <asm/arch/mx6.h>
 
 struct watchdog_regs {
-	u16	wcr;
+	u8	wcr_time;
+	u8	wcr_ctrl;
 	u16	wsr;
 	u16	wrsr;
 	u16	wicr;
@@ -27,19 +28,16 @@ void hw_watchdog_reset(void)
 
 void hw_watchdog_init(void)
 {
+	printf("MY INSERT: hw_watchdog_init()\n");
 	struct watchdog_regs *wdog = (struct watchdog_regs *)WDOG1_BASE_ADDR;
-	printf("MY INSERT: hw_watchdog_init() wmcr\n");
-	writew(0x0000, &wdog->wmcr);
-	u16 reg_wcr = readw(&wdog->wcr);
-	printf("MY INSERT: hw_watchdog_init() read wcr = %#08x\n", reg_wcr);
-	reg_wcr &= 0x00FF;
-	reg_wcr |= 0x1000;
-	printf("MY INSERT: hw_watchdog_init() reg_wcr  = %#08x\n", reg_wcr);
-	writew(reg_wcr, &wdog->wcr);
-	reg_wcr |= 0x00a7;
-	printf("MY INSERT: hw_watchdog_init() reg_wcr  = %#08x\n", reg_wcr);
-	printf("MY INSERT: hw_watchdog_init() wcr\n");
-	writew(reg_wcr, &wdog->wcr);
-	reg_wcr = readw(&wdog->wcr);
-	printf("MY INSERT: hw_watchdog_init() read wcr = %#08x\n", reg_wcr);
+	writew(0x03, &wdog->wcr_time);
+	writew(0xa7, &wdog->wcr_ctrl);
+}
+
+
+void hw_watchdog_fin(void)
+{
+	printf("MY INSERT: hw_watchdog_fin()\n");
+	struct watchdog_regs *wdog = (struct watchdog_regs *)WDOG1_BASE_ADDR;
+	writew(0x30, &wdog->wcr_ctrl);
 }

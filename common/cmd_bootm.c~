@@ -340,74 +340,74 @@ static int bootm_load_os(image_info_t os, ulong *load_end, int boot_progress)
 	const char *type_name = genimg_get_type_name (os.type);
 
 	switch (comp) {
-	case IH_COMP_NONE:
-		if (load == blob_start) {
-			printf ("   XIP %s ... ", type_name);
-		} else {
-			printf ("   Loading %s ... ", type_name);
+		case IH_COMP_NONE:
+			if (load == blob_start) {
+				printf ("   XIP %s ... ", type_name);
+			} else {
+				printf ("   Loading %s ... ", type_name);
 
-			if (load != image_start) {
-				memmove_wd ((void *)load,
-						(void *)image_start, image_len, CHUNKSZ);
+				if (load != image_start) {
+					memmove_wd ((void *)load,
+							(void *)image_start, image_len, CHUNKSZ);
+				}
 			}
-		}
-		*load_end = load + image_len;
-		puts("OK\n");
-		break;
-	case IH_COMP_GZIP:
-		printf ("   Uncompressing %s ... ", type_name);
-		if (gunzip ((void *)load, unc_len,
-					(uchar *)image_start, &image_len) != 0) {
-			puts ("GUNZIP: uncompress, out-of-mem or overwrite error "
-				"- must RESET board to recover\n");
-			if (boot_progress)
-				show_boot_progress (-6);
-			return BOOTM_ERR_RESET;
-		}
+			*load_end = load + image_len;
+			puts("OK\n");
+			break;
+		case IH_COMP_GZIP:
+			printf ("   Uncompressing %s ... ", type_name);
+			if (gunzip ((void *)load, unc_len,
+						(uchar *)image_start, &image_len) != 0) {
+				puts ("GUNZIP: uncompress, out-of-mem or overwrite error "
+					"- must RESET board to recover\n");
+				if (boot_progress)
+					show_boot_progress (-6);
+				return BOOTM_ERR_RESET;
+			}
 
-		*load_end = load + image_len;
-		break;
+			*load_end = load + image_len;
+			break;
 #ifdef CONFIG_BZIP2
-	case IH_COMP_BZIP2:
-		printf ("   Uncompressing %s ... ", type_name);
-		/*
-		 * If we've got less than 4 MB of malloc() space,
-		 * use slower decompression algorithm which requires
-		 * at most 2300 KB of memory.
-		 */
-		int i = BZ2_bzBuffToBuffDecompress ((char*)load,
-					&unc_len, (char *)image_start, image_len,
-					CONFIG_SYS_MALLOC_LEN < (4096 * 1024), 0);
-		if (i != BZ_OK) {
-			printf ("BUNZIP2: uncompress or overwrite error %d "
-				"- must RESET board to recover\n", i);
-			if (boot_progress)
-				show_boot_progress (-6);
-			return BOOTM_ERR_RESET;
-		}
+		case IH_COMP_BZIP2:
+			printf ("   Uncompressing %s ... ", type_name);
+			/*
+			* If we've got less than 4 MB of malloc() space,
+			* use slower decompression algorithm which requires
+			* at most 2300 KB of memory.
+			*/
+			int i = BZ2_bzBuffToBuffDecompress ((char*)load,
+						&unc_len, (char *)image_start, image_len,
+						CONFIG_SYS_MALLOC_LEN < (4096 * 1024), 0);
+			if (i != BZ_OK) {
+				printf ("BUNZIP2: uncompress or overwrite error %d "
+					"- must RESET board to recover\n", i);
+				if (boot_progress)
+					show_boot_progress (-6);
+				return BOOTM_ERR_RESET;
+			}
 
-		*load_end = load + unc_len;
-		break;
+			*load_end = load + unc_len;
+			break;
 #endif /* CONFIG_BZIP2 */
 #ifdef CONFIG_LZMA
-	case IH_COMP_LZMA:
-		printf ("   Uncompressing %s ... ", type_name);
+		case IH_COMP_LZMA:
+			printf ("   Uncompressing %s ... ", type_name);
 
-		int ret = lzmaBuffToBuffDecompress(
-			(unsigned char *)load, &unc_len,
-			(unsigned char *)image_start, image_len);
-		if (ret != SZ_OK) {
-			printf ("LZMA: uncompress or overwrite error %d "
-				"- must RESET board to recover\n", ret);
-			show_boot_progress (-6);
-			return BOOTM_ERR_RESET;
-		}
-		*load_end = load + unc_len;
-		break;
+			int ret = lzmaBuffToBuffDecompress(
+				(unsigned char *)load, &unc_len,
+				(unsigned char *)image_start, image_len);
+			if (ret != SZ_OK) {
+				printf ("LZMA: uncompress or overwrite error %d "
+					"- must RESET board to recover\n", ret);
+				show_boot_progress (-6);
+				return BOOTM_ERR_RESET;
+			}
+			*load_end = load + unc_len;
+			break;
 #endif /* CONFIG_LZMA */
-	default:
-		printf ("Unimplemented compression type %d\n", comp);
-		return BOOTM_ERR_UNIMPLEMENTED;
+		default:
+			printf ("Unimplemented compression type %d\n", comp);
+			return BOOTM_ERR_UNIMPLEMENTED;
 	}
 	puts ("OK\n");
 	debug ("   kernel loaded at 0x%08lx, end = 0x%08lx\n", load, *load_end);
@@ -739,7 +739,7 @@ static image_header_t *image_get_kernel (ulong img_addr, int verify)
 	image_print_contents (hdr);
 
 	if (verify) {
-		puts ("   My Verifying Checksum ... OK\n");
+		puts ("   My Verifying Checksum 1 ... OK\n");
 /* MY INSERT
 		if (!image_check_dcrc (hdr)) {
 			printf ("Bad Data CRC\n");

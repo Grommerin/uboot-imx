@@ -10,7 +10,8 @@
 #include <asm/arch/mx6.h>
 
 struct watchdog_regs {
-	u16	wcr;
+	u8	wcr_time;
+	u8	wcr_ctrl;
 	u16	wsr;
 	u16	wrsr;
 	u16	wicr;
@@ -27,12 +28,8 @@ void hw_watchdog_reset(void)
 
 void hw_watchdog_init(void)
 {
+	printf("MY INSERT: hw_watchdog_init()\n");
 	struct watchdog_regs *wdog = (struct watchdog_regs *)WDOG1_BASE_ADDR;
-	printf("MY INSERT: hw_watchdog_init() wmcr\n");
-	writew(0x0000, &wdog->wmcr);
-	u16 reg_wcr = readw(&wdog->wcr);
-	printf("MY INSERT: hw_watchdog_init() read wcr = %#08x\n", reg_wcr);
-	
-	printf("MY INSERT: hw_watchdog_init() wcr\n");
-	writew(0x10a7, &wdog->wcr);
+	writew(0x03, &wdog->wcr_time);
+	writew(0xa7, &wdog->wcr_ctrl);
 }
