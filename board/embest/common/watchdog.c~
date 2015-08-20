@@ -50,7 +50,7 @@ void hw_watchdog_fin(void)
 	writew(reg_wcr, &wdog->wcr);
 	writew(reg_wcr, &wdog->wcr);
 	printf("MY INSERT: hw_watchdog_fin()     wcr = %#08x\n", readw(&wdog->wcr));
-	reg_wcr &= 0xFFFB;
+	reg_wcr &= ~0x0004;
 	printf("MY INSERT: hw_watchdog_fin() reg_wcr = %#08x\n", reg_wcr);
 	writew(reg_wcr, &wdog->wcr);
 	writew(reg_wcr, &wdog->wcr);
