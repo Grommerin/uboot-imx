@@ -10,7 +10,7 @@
 #include <asm/arch/mx6.h>
 
 struct watchdog_regs {
-	u16	wcr_time;
+	u16	wcr;
 	u16	wsr;
 	u16	wrsr;
 	u16	wicr;
@@ -45,5 +45,5 @@ void hw_watchdog_fin(void)
 	u16 reg_wcr = readw(&wdog->wcr);
 	reg_wcr &= 0xFF00;
 	reg_wcr |= 0x0030;
-	writew(reg_wcr, &wdog->wcr_ctrl);
+	writew(reg_wcr, &wdog->wcr);
 }

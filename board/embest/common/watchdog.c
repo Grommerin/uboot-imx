@@ -46,4 +46,5 @@ void hw_watchdog_fin(void)
 	reg_wcr &= 0xFF00;
 	reg_wcr |= 0x0030;
 	writew(reg_wcr, &wdog->wcr);
+	writew(0x0000, &wdog->wmcr);
 }
