@@ -29,6 +29,7 @@ void hw_watchdog_init(void)
 {
         printf("MY INSERT: hw_watchdog_init()\n");
 	struct watchdog_regs *wdog = (struct watchdog_regs *)WDOG1_BASE_ADDR;
-	writew(0x03a7, &wdog->wcr);
+	writew(0x0000, &wdog->wmcr);
+	writew(0x10a7, &wdog->wcr);
 	hw_watchdog_reset();
 }
