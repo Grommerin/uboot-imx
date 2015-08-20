@@ -31,7 +31,7 @@ void hw_watchdog_init(void)
 	struct watchdog_regs *wdog = (struct watchdog_regs *)WDOG1_BASE_ADDR;
 	u16 reg_wcr = readw(&wdog->wcr);
 	reg_wcr &= 0x00FF;
-	reg_wcr |= 0x0300;
+	reg_wcr |= 0x0100;
 	writew(reg_wcr, &wdog->wcr);
 	reg_wcr |= 0x008F;
 	writew(reg_wcr, &wdog->wcr);
@@ -45,6 +45,6 @@ void hw_watchdog_fin(void)
 	struct watchdog_regs *wdog = (struct watchdog_regs *)WDOG1_BASE_ADDR;	
 	u16 reg_wcr = readw(&wdog->wcr);
 	reg_wcr &= 0x00FF;
-	reg_wcr |= 0x0a00;
+	reg_wcr |= 0xFF00;
 	writew(reg_wcr, &wdog->wcr);
 }
