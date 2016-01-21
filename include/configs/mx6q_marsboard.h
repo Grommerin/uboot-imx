@@ -257,7 +257,7 @@
 	#define CONFIG_CMD_EXT2		1
 
 	/* detect whether SD1, 2, 3, or 4 is boot device */
-// MY INSERT	#define CONFIG_DYNAMIC_MMC_DEVNO
+#define CONFIG_DYNAMIC_MMC_DEVNO
 
 	/* Setup target delay in DDR mode for each SD port */
 	#define CONFIG_GET_DDR_TARGET_DELAY
@@ -303,7 +303,7 @@
 /* Monitor at beginning of flash */
 /* #define CONFIG_FSL_ENV_IN_MMC */
 /* #define CONFIG_FSL_ENV_IN_SATA */
-// MY INSERT #define CONFIG_FSL_ENV_IN_SF
+#define CONFIG_FSL_ENV_IN_SF
 
 #define CONFIG_ENV_SECT_SIZE    (8 * 1024)
 #define CONFIG_ENV_SIZE         CONFIG_ENV_SECT_SIZE
