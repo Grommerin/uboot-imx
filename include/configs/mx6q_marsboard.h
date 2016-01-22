@@ -122,7 +122,7 @@
 		"kernel=uImage\0" \
 		"bootargs=console=ttymxc1,115200\0" \
 		"bootargs_mmc=setenv bootargs ${bootargs} " \
-			"root=/dev/mmcblk0p1 rootwait rw\0" \
+			"root=/dev/mmcblk0p1 rootwait rw quiet\0" \
 		"bootcmd=run bootargs_mmc; mmc dev 1;" \
 			"mmc read ${loadaddr} 0x800 0x1400;bootm\0" \
 		"clearenv=sf probe 0 && sf erase 0xc0000 0x2000 && " \
